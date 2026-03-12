@@ -1,0 +1,55 @@
+﻿import React from "react"
+import { Routes, Route, Navigate } from "react-router-dom"
+import LoginPage from "./pages/LoginPage"
+import DashboardPage from "./pages/DashboardPage"
+import AviatPage from "./pages/AviatPage"
+import JetstreamPage from "./pages/JetstreamPage"
+import MikrotikPage from "./pages/MikrotikPage"
+import AppShell from "./layout/AppShell"
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/login" element={<LoginPage />} />
+
+      <Route
+        path="/dashboard"
+        element={
+          <AppShell>
+            <DashboardPage />
+          </AppShell>
+        }
+      />
+
+      <Route
+        path="/aviat"
+        element={
+          <AppShell>
+            <AviatPage />
+          </AppShell>
+        }
+      />
+
+      <Route
+        path="/jetstream"
+        element={
+          <AppShell>
+            <JetstreamPage />
+          </AppShell>
+        }
+      />
+
+      <Route
+        path="/mikrotik"
+        element={
+          <AppShell>
+            <MikrotikPage />
+          </AppShell>
+        }
+      />
+
+      <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route path="*" element={<Navigate to="/login" replace />} />
+    </Routes>
+  )
+}

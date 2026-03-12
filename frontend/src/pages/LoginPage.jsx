@@ -1,0 +1,347 @@
+﻿import React, { useEffect, useMemo, useState } from "react"
+import { useNavigate } from "react-router-dom"
+
+function useNow() {
+  const [now, setNow] = useState(new Date())
+
+  useEffect(() => {
+    const t = setInterval(() => setNow(new Date()), 1000)
+    return () => clearInterval(t)
+  }, [])
+
+  return now
+}
+
+function formatTime(d) {
+  return d.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+  })
+}
+
+function formatDate(d) {
+  return d.toLocaleDateString([], {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  })
+}
+
+function AnimatedNetwork({ introDone }) {
+  const groups = [
+    {
+      cls: "drift-a",
+      lines: [
+        { x1: 2,  y1: 10, x2: 11, y2: 18, d: "0s" },
+        { x1: 11, y1: 18, x2: 8,  y2: 33, d: "0.8s" },
+        { x1: 8,  y1: 33, x2: 20, y2: 26, d: "1.4s" },
+        { x1: 20, y1: 26, x2: 28, y2: 40, d: "1.9s" },
+        { x1: 28, y1: 40, x2: 17, y2: 52, d: "2.4s" },
+        { x1: 4,  y1: 58, x2: 16, y2: 61, d: "1.1s" },
+        { x1: 16, y1: 61, x2: 22, y2: 74, d: "2.0s" },
+        { x1: 22, y1: 74, x2: 7,  y2: 71, d: "2.8s" },
+        { x1: 7,  y1: 86, x2: 18, y2: 88, d: "1.7s" },
+        { x1: 18, y1: 88, x2: 24, y2: 96, d: "2.6s" },
+      ],
+    },
+    {
+      cls: "drift-b",
+      lines: [
+        { x1: 29, y1: 16, x2: 43, y2: 14, d: "0.3s" },
+        { x1: 43, y1: 14, x2: 50, y2: 25, d: "1.0s" },
+        { x1: 36, y1: 30, x2: 48, y2: 36, d: "1.8s" },
+        { x1: 33, y1: 48, x2: 46, y2: 43, d: "2.1s" },
+        { x1: 38, y1: 82, x2: 50, y2: 76, d: "0.9s" },
+        { x1: 50, y1: 76, x2: 60, y2: 85, d: "1.7s" },
+        { x1: 31, y1: 64, x2: 44, y2: 60, d: "2.4s" },
+        { x1: 44, y1: 60, x2: 53, y2: 66, d: "2.9s" },
+        { x1: 26, y1: 22, x2: 34, y2: 41, d: "1.3s" },
+        { x1: 34, y1: 41, x2: 29, y2: 55, d: "2.2s" },
+      ],
+    },
+    {
+      cls: "drift-c",
+      lines: [
+        { x1: 58, y1: 11, x2: 69, y2: 15, d: "0.4s" },
+        { x1: 69, y1: 15, x2: 82, y2: 27, d: "1.2s" },
+        { x1: 82, y1: 27, x2: 70, y2: 39, d: "1.9s" },
+        { x1: 62, y1: 30, x2: 75, y2: 21, d: "2.7s" },
+        { x1: 72, y1: 56, x2: 82, y2: 47, d: "0.8s" },
+        { x1: 82, y1: 47, x2: 95, y2: 60, d: "1.5s" },
+        { x1: 95, y1: 60, x2: 98, y2: 45, d: "2.3s" },
+        { x1: 69, y1: 73, x2: 79, y2: 66, d: "1.0s" },
+        { x1: 79, y1: 66, x2: 91, y2: 76, d: "1.8s" },
+        { x1: 91, y1: 76, x2: 97, y2: 58, d: "2.6s" },
+      ],
+    },
+  ]
+
+  const dots = [
+    [2,10],[11,18],[8,33],[20,26],[28,40],[17,52],[4,58],[16,61],[22,74],[7,71],[7,86],[18,88],[24,96],
+    [29,16],[43,14],[50,25],[36,30],[48,36],[33,48],[46,43],[38,82],[50,76],[60,85],[31,64],[44,60],[53,66],[26,22],[34,41],[29,55],
+    [58,11],[69,15],[82,27],[70,39],[62,30],[75,21],[72,56],[82,47],[95,60],[98,45],[69,73],[79,66],[91,76],[97,58],
+    [54,52],[87,18],[41,57],[13,48],[64,84]
+  ]
+
+  return (
+    <div className={introDone ? "network-layer intro-done" : "network-layer"}>
+      <svg className="network-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+        {groups.map((group, gi) => (
+          <g key={gi} className={group.cls}>
+            {group.lines.map((line, i) => (
+              <line
+                key={`${gi}-${i}`}
+                x1={line.x1}
+                y1={line.y1}
+                x2={line.x2}
+                y2={line.y2}
+                className="network-segment"
+                style={{ animationDelay: line.d }}
+              />
+            ))}
+          </g>
+        ))}
+      </svg>
+
+      {dots.map((d, i) => (
+        <span
+          key={i}
+          className={i % 5 === 0 ? "net-dot strong" : "net-dot"}
+          style={{ left: d[0] + "%", top: d[1] + "%" }}
+        />
+      ))}
+    </div>
+  )
+}
+
+function FaceWidget({ mood, usernameFocused, passwordFocused, isTypingUser, isTypingPass, introDone }) {
+  const faceClass = [
+    "face-widget",
+    mood === "sad" ? "sad" : "",
+    mood === "happy" ? "happy" : "",
+    mood === "success" ? "success" : "",
+    usernameFocused ? "look-user" : "",
+    passwordFocused ? "look-pass" : "",
+    isTypingUser ? "typing-user" : "",
+    isTypingPass ? "typing-pass" : "",
+    introDone ? "intro-face-ready" : "intro-face-hidden",
+  ].filter(Boolean).join(" ")
+
+  return (
+    <div className={faceClass}>
+      <div className="face-head">
+        <div className="face-eyes">
+          <span className="eye left"></span>
+          <span className="eye right"></span>
+        </div>
+        <div className="face-mouth"></div>
+        <div className="face-blush left"></div>
+        <div className="face-blush right"></div>
+      </div>
+
+      <div className="face-hand like-hand">👍</div>
+      <div className="face-status">
+        {mood === "sad" ? "Access denied" : mood === "success" ? "Access granted" : "Identity check"}
+      </div>
+    </div>
+  )
+}
+
+function ParallaxCard({ children, introDone }) {
+  const [style, setStyle] = useState({})
+
+  function handleMove(e) {
+    if (!introDone) return
+    const rect = e.currentTarget.getBoundingClientRect()
+    const px = (e.clientX - rect.left) / rect.width
+    const py = (e.clientY - rect.top) / rect.height
+
+    const rx = (0.5 - py) * 14
+    const ry = (px - 0.5) * 18
+    const tx = (px - 0.5) * 14
+    const ty = (py - 0.5) * 10
+
+    setStyle({
+      transform: `perspective(1200px) rotateX(${rx}deg) rotateY(${ry}deg) translateX(${tx}px) translateY(${ty}px)`,
+      "--mx": `${px * 100}%`,
+      "--my": `${py * 100}%`,
+    })
+  }
+
+  function handleLeave() {
+    setStyle({
+      transform: "perspective(1200px) rotateX(0deg) rotateY(0deg) translateX(0px) translateY(0px)",
+      "--mx": "50%",
+      "--my": "50%",
+    })
+  }
+
+  return (
+    <div
+      className={introDone ? "login-card-parallax-wrap intro-card-ready" : "login-card-parallax-wrap intro-card-hidden"}
+      onMouseMove={handleMove}
+      onMouseLeave={handleLeave}
+      onMouseEnter={handleMove}
+    >
+      <div className="login-v3-card" style={style}>
+        <div className="card-mouse-glow"></div>
+        {children}
+      </div>
+    </div>
+  )
+}
+
+function IntroOverlay({ introDone }) {
+  return (
+    <div className={introDone ? "intro-overlay intro-overlay-done" : "intro-overlay"}>
+      <div className="intro-center">
+        <div className="intro-logo-wrap">
+          <div className="intro-logo-icon">
+            <span className="intro-logo-ring"></span>
+          </div>
+          <div className="intro-logo-texts">
+            <div className="intro-logo-title">NoCommentISP</div>
+            <div className="intro-logo-subtitle">Secure console access</div>
+          </div>
+        </div>
+
+        <div className="intro-boot">
+          <div className="intro-line l1">Initializing secure console...</div>
+          <div className="intro-line l2">Loading interface modules...</div>
+          <div className="intro-line l3">Authentication gateway ready</div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default function LoginPage() {
+  const now = useNow()
+  const navigate = useNavigate()
+
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const [mood, setMood] = useState("idle")
+  const [usernameFocused, setUsernameFocused] = useState(false)
+  const [passwordFocused, setPasswordFocused] = useState(false)
+  const [errorText, setErrorText] = useState("")
+  const [introDone, setIntroDone] = useState(false)
+
+  const buildId = useMemo(() => "70411518", [])
+
+  useEffect(() => {
+    const t = setTimeout(() => setIntroDone(true), 2600)
+    return () => clearTimeout(t)
+  }, [])
+
+  function handleLogin(e) {
+    e.preventDefault()
+
+    const okUser = username.trim() === "admin"
+    const okPass = password === "123456"
+
+    if (okUser && okPass) {
+      setMood("success")
+      setErrorText("")
+      setTimeout(() => {
+        navigate("/dashboard")
+      }, 1200)
+      return
+    }
+
+    setMood("sad")
+    setErrorText("Invalid username or password.")
+    setTimeout(() => setMood("idle"), 1400)
+  }
+
+  return (
+    <div className="login-v3-screen">
+      <AnimatedNetwork introDone={introDone} />
+      <IntroOverlay introDone={introDone} />
+
+      <div className={introDone ? "login-v3-header-left intro-corner-show" : "login-v3-header-left intro-corner-hide"}>
+        <div className="v3-brand">
+          <div className="v3-brand-icon">
+            <span className="v3-brand-ring"></span>
+          </div>
+          <div>
+            <div className="v3-brand-title">NoCommentISP</div>
+            <div className="v3-brand-subtitle">Secure console access</div>
+          </div>
+        </div>
+      </div>
+
+      <div className={introDone ? "login-v3-header-right intro-corner-show" : "login-v3-header-right intro-corner-hide"}>
+        <div className="v3-status-pill">
+          <span className="v3-live-dot"></span>
+          <span>Tripoli</span>
+          <span className="v3-sep"></span>
+          <span>{formatTime(now)}</span>
+          <span className="v3-sep"></span>
+          <span>{formatDate(now)}</span>
+        </div>
+      </div>
+
+      <ParallaxCard introDone={introDone}>
+        <FaceWidget
+          mood={mood}
+          usernameFocused={usernameFocused}
+          passwordFocused={passwordFocused}
+          isTypingUser={username.length > 0}
+          isTypingPass={password.length > 0}
+          introDone={introDone}
+        />
+
+        <h1>Welcome back</h1>
+        <p className="v3-subtitle">Sign in to continue</p>
+
+        <form className="v3-form" onSubmit={handleLogin}>
+          <label className="v3-label">Username</label>
+          <input
+            className="v3-input"
+            type="text"
+            placeholder="Enter your username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            onFocus={() => {
+              setUsernameFocused(true)
+              setPasswordFocused(false)
+              setMood("idle")
+            }}
+            onBlur={() => setUsernameFocused(false)}
+          />
+
+          <label className="v3-label">Password</label>
+          <div className="v3-password-wrap">
+            <input
+              className="v3-input"
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              onFocus={() => {
+                setPasswordFocused(true)
+                setUsernameFocused(false)
+                setMood("idle")
+              }}
+              onBlur={() => setPasswordFocused(false)}
+            />
+            <button type="button" className="v3-eye-btn">⌁</button>
+          </div>
+
+          {errorText ? <div className="v3-error">{errorText}</div> : null}
+
+          <button type="submit" className="v3-login-btn">
+            Login
+          </button>
+        </form>
+
+        <div className="v3-demo-note">Demo credentials: admin / 123456</div>
+        <div className="v3-footer">2026 NoComment ISP. All rights reserved.</div>
+        <div className="v3-build">{buildId}</div>
+      </ParallaxCard>
+    </div>
+  )
+}

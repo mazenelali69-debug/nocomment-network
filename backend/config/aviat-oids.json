@@ -1,0 +1,31 @@
+{
+  "deviceIp": "155.15.59.4",
+  "community": "public",
+  "pollSeconds": 3,
+  "interfaces": {
+    "uplink": {
+      "label": "Radio1",
+      "ifIndex": 1537,
+      "ifName": "Radio1",
+      "capacityMbps": 3000,
+      "inOid": "1.3.6.1.2.1.31.1.1.1.6.1537",
+      "outOid": "1.3.6.1.2.1.31.1.1.1.10.1537"
+    },
+    "switchB": {
+      "label": "Switch B",
+      "ifIndex": 2049,
+      "ifName": "TenGigE1/1",
+      "capacityMbps": 1000,
+      "inOid": "1.3.6.1.2.1.31.1.1.1.6.2049",
+      "outOid": "1.3.6.1.2.1.31.1.1.1.10.2049"
+    },
+    "switchA": {
+      "label": "Switch A",
+      "ifIndex": 2050,
+      "ifName": "TenGigE1/2",
+      "capacityMbps": 1000,
+      "inOid": "1.3.6.1.2.1.31.1.1.1.6.2050",
+      "outOid": "1.3.6.1.2.1.31.1.1.1.10.2050"
+    }
+  }
+}
