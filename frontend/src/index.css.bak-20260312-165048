@@ -612,10 +612,14 @@ button, input{
   0%,100%{ opacity: .38; stroke: var(--line); }
   50%{ opacity: .95; stroke: var(--line-strong); }
 }
+  50%{ opacity: .92; stroke: var(--line-strong); }
+}
 
 @keyframes dotTwinkle{
   0%,100%{ opacity: .28; transform: scale(1); }
   50%{ opacity: .88; transform: scale(1.45); }
+}
+  50%{ opacity: .92; transform: scale(1.35); }
 }
 
 @media (max-width: 1100px){
@@ -758,7 +762,37 @@ button, input{
   .hero-panel{
     border-radius: 20px;
     padding: 18px;
+  }
 }
+
+.drift-a{
+  animation: networkDriftA 7s ease-in-out infinite alternate;
+}
+
+.drift-b{
+  animation: networkDriftB 8s ease-in-out infinite alternate;
+}
+
+.drift-c{
+  animation: networkDriftC 7.5s ease-in-out infinite alternate;
+}
+
+@keyframes networkDriftA{
+  0%   { transform: translate3d(0px,0px,0px); }
+  50%  { transform: translate3d(10px,-8px,0px); }
+  100% { transform: translate3d(-8px,10px,0px); }
+}
+
+@keyframes networkDriftB{
+  0%   { transform: translate3d(0px,0px,0px); }
+  50%  { transform: translate3d(-12px,6px,0px); }
+  100% { transform: translate3d(8px,-10px,0px); }
+}
+
+@keyframes networkDriftC{
+  0%   { transform: translate3d(0px,0px,0px); }
+  50%  { transform: translate3d(14px,8px,0px); }
+  100% { transform: translate3d(-10px,-6px,0px); }
 }
 
 .face-widget{
@@ -984,6 +1018,38 @@ button, input{
   color: #8ea7ca;
   font-weight: 700;
 }
+
+.drift-a{
+  animation: networkDriftA 7s ease-in-out infinite alternate;
+}
+
+.drift-b{
+  animation: networkDriftB 8s ease-in-out infinite alternate;
+}
+
+.drift-c{
+  animation: networkDriftC 7.5s ease-in-out infinite alternate;
+}
+
+@keyframes networkDriftA{
+  0%   { transform: translate3d(0px,0px,0px); }
+  50%  { transform: translate3d(16px,-10px,0px); }
+  100% { transform: translate3d(-12px,14px,0px); }
+}
+
+@keyframes networkDriftB{
+  0%   { transform: translate3d(0px,0px,0px); }
+  50%  { transform: translate3d(-18px,8px,0px); }
+  100% { transform: translate3d(10px,-14px,0px); }
+}
+
+@keyframes networkDriftC{
+  0%   { transform: translate3d(0px,0px,0px); }
+  50%  { transform: translate3d(18px,10px,0px); }
+  100% { transform: translate3d(-12px,-8px,0px); }
+}
+
+
 .intro-overlay{
   position: fixed;
   inset: 0;
@@ -2968,6 +3034,10 @@ button, input{
 }
 /* AVIAT-SPARK-END */
 
+
+
+
+
 /* AVIAT-TOPOLOGY-FIX-START */
 
 .aviat-node.beast.internet{
@@ -3019,6 +3089,8 @@ button, input{
 }
 
 /* AVIAT-TOPOLOGY-FIX-END */
+
+
 
 /* AVIAT-TOPOLOGY-MERGE-START */
 
@@ -3927,6 +3999,12 @@ button, input{
 }
 /* AVIAT-CLEAN-REBUILD-END */
 
+
+
+
+
+
+
 .aviat-x-page{padding:20px}
 .aviat-x-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .aviat-x-card{background:#0b1a33;border-radius:16px;padding:16px;border:1px solid #1c3d6e}
@@ -3934,343 +4012,4 @@ button, input{
 .aviat-x-total{font-size:26px;font-weight:900}
 
 
-/* ===== LOGIN PRO MAX PATCH START ===== */
-
-/* restore drifting network groups */
-.drift-a{
-  animation: networkDriftA 7s ease-in-out infinite alternate;
-  transform-origin: 18% 28%;
-}
-.drift-b{
-  animation: networkDriftB 8s ease-in-out infinite alternate;
-  transform-origin: 50% 44%;
-}
-.drift-c{
-  animation: networkDriftC 7.5s ease-in-out infinite alternate;
-  transform-origin: 82% 30%;
-}
-
-@keyframes networkDriftA{
-  0%   { transform: translate3d(0px,0px,0px); }
-  50%  { transform: translate3d(10px,-8px,0px); }
-  100% { transform: translate3d(-8px,10px,0px); }
-}
-@keyframes networkDriftB{
-  0%   { transform: translate3d(0px,0px,0px); }
-  50%  { transform: translate3d(-12px,6px,0px); }
-  100% { transform: translate3d(8px,-10px,0px); }
-}
-@keyframes networkDriftC{
-  0%   { transform: translate3d(0px,0px,0px); }
-  50%  { transform: translate3d(14px,8px,0px); }
-  100% { transform: translate3d(-10px,-6px,0px); }
-}
-
-/* make network more alive */
-.network-segment{
-  stroke: var(--line);
-  stroke-width: 0.16;
-  stroke-linecap: round;
-  animation: linePulse 4.6s ease-in-out infinite;
-}
-.net-dot{
-  animation: dotTwinkle 3.8s ease-in-out infinite;
-}
-.net-dot.strong{
-  animation: dotTwinkle 2.8s ease-in-out infinite;
-}
-
-/* face expressions */
-.face-widget.look-user .face-eyes{
-  transform: translateX(-6px);
-}
-.face-widget.look-pass .face-eyes{
-  transform: translateX(6px) translateY(2px);
-}
-.face-widget.typing-user .face-head{
-  transform: translateY(-1px) scale(1.015);
-}
-.face-widget.typing-pass .eye{
-  transform: scale(.92);
-}
-
-.face-widget.sad{
-  animation: faceErrorShake .38s ease-in-out 2;
-}
-.face-widget.sad .face-head{
-  filter: saturate(.9);
-}
-.face-widget.sad .eye{
-  transform: translateY(1px) scaleY(.85);
-}
-.face-widget.sad .face-status{
-  color:#ffb8c4;
-}
-
-.face-widget.happy .face-head,
-.face-widget.success .face-head{
-  transform: translateY(-1px) scale(1.04);
-}
-.face-widget.happy .face-mouth,
-.face-widget.success .face-mouth{
-  width: 24px;
-  height: 10px;
-  border-bottom-width: 3px;
-  border-radius: 0 0 20px 20px;
-}
-.face-widget.happy .face-blush,
-.face-widget.success .face-blush{
-  opacity: 1;
-}
-.face-widget.happy .face-status,
-.face-widget.success .face-status{
-  color:#bfffe2;
-}
-
-.face-widget.success .face-hand{
-  opacity: 1;
-  transform: translateY(0) rotate(0deg) scale(1.08);
-  animation: faceLikePop .65s ease-out 1, faceLikeWave 1.2s ease-in-out infinite .65s;
-}
-
-.intro-face-ready .eye{
-  animation: eyeBlinkLoop 4.5s ease-in-out infinite;
-  animation-delay: .6s;
-}
-
-@keyframes faceErrorShake{
-  0%,100%{ transform: translateX(0); }
-  20%{ transform: translateX(-4px); }
-  40%{ transform: translateX(4px); }
-  60%{ transform: translateX(-3px); }
-  80%{ transform: translateX(3px); }
-}
-@keyframes faceLikePop{
-  0%   { opacity:0; transform: translateY(8px) rotate(-18deg) scale(.6); }
-  70%  { opacity:1; transform: translateY(0) rotate(6deg) scale(1.12); }
-  100% { opacity:1; transform: translateY(0) rotate(0deg) scale(1.06); }
-}
-@keyframes faceLikeWave{
-  0%,100%{ transform: translateY(0) rotate(0deg) scale(1.06); }
-  25%{ transform: translateY(-1px) rotate(7deg) scale(1.08); }
-  50%{ transform: translateY(0) rotate(-4deg) scale(1.06); }
-  75%{ transform: translateY(-1px) rotate(5deg) scale(1.08); }
-}
-
-@keyframes eyeBlinkLoop{
-  0%, 46%, 50%, 100%{
-    transform: scaleY(1);
-  }
-  48%{
-    transform: scaleY(.16);
-  }
-}
-
-/* ===== LOGIN PRO MAX PATCH END ===== */
-
-/* ===== LOGIN LIVE FIX START ===== */
-.drift-a{
-  animation: networkDriftA 7s ease-in-out infinite alternate;
-  transform-origin: 18% 28%;
-}
-.drift-b{
-  animation: networkDriftB 8s ease-in-out infinite alternate;
-  transform-origin: 50% 44%;
-}
-.drift-c{
-  animation: networkDriftC 7.5s ease-in-out infinite alternate;
-  transform-origin: 82% 30%;
-}
-
-@keyframes networkDriftA{
-  0%   { transform: translate3d(0px,0px,0px); }
-  50%  { transform: translate3d(10px,-8px,0px); }
-  100% { transform: translate3d(-8px,10px,0px); }
-}
-@keyframes networkDriftB{
-  0%   { transform: translate3d(0px,0px,0px); }
-  50%  { transform: translate3d(-12px,6px,0px); }
-  100% { transform: translate3d(8px,-10px,0px); }
-}
-@keyframes networkDriftC{
-  0%   { transform: translate3d(0px,0px,0px); }
-  50%  { transform: translate3d(14px,8px,0px); }
-  100% { transform: translate3d(-10px,-6px,0px); }
-}
-
-.network-segment{
-  stroke-width: 0.16;
-  stroke-linecap: round;
-  animation: linePulse 4.6s ease-in-out infinite;
-}
-.net-dot{ animation: dotTwinkle 3.8s ease-in-out infinite; }
-.net-dot.strong{ animation: dotTwinkle 2.8s ease-in-out infinite; }
-
-.face-widget.look-user .face-eyes{ transform: translateX(-6px); }
-.face-widget.look-pass .face-eyes{ transform: translateX(6px) translateY(2px); }
-
-.face-widget.sad{ animation: faceErrorShake .38s ease-in-out 2; }
-.face-widget.sad .face-mouth{
-  border-bottom: 0;
-  border-top: 2px solid #edf6ff;
-  border-radius: 16px 16px 0 0;
-  top: 47px;
-}
-.face-widget.sad .face-status{ color:#ffb8c4; }
-
-.face-widget.happy .face-mouth,
-.face-widget.success .face-mouth{
-  width: 24px;
-  height: 10px;
-  border-bottom-width: 3px;
-  border-radius: 0 0 20px 20px;
-}
-.face-widget.happy .face-blush,
-.face-widget.success .face-blush{
-  opacity: 1;
-}
-.face-widget.happy .face-status,
-.face-widget.success .face-status{
-  color:#bfffe2;
-}
-
-.face-widget.success .face-hand{
-  opacity: 1;
-  transform: translateY(0) rotate(0deg) scale(1.08);
-  animation: faceLikePop .65s ease-out 1, faceLikeWave 1.2s ease-in-out infinite .65s;
-}
-
-.intro-face-ready .eye{
-  animation: eyeBlinkLoop 4.5s ease-in-out infinite;
-  animation-delay: .6s;
-}
-
-@keyframes faceErrorShake{
-  0%,100%{ transform: translateX(0); }
-  20%{ transform: translateX(-4px); }
-  40%{ transform: translateX(4px); }
-  60%{ transform: translateX(-3px); }
-  80%{ transform: translateX(3px); }
-}
-@keyframes faceLikePop{
-  0%   { opacity:0; transform: translateY(8px) rotate(-18deg) scale(.6); }
-  70%  { opacity:1; transform: translateY(0) rotate(6deg) scale(1.12); }
-  100% { opacity:1; transform: translateY(0) rotate(0deg) scale(1.06); }
-}
-@keyframes faceLikeWave{
-  0%,100%{ transform: translateY(0) rotate(0deg) scale(1.06); }
-  25%{ transform: translateY(-1px) rotate(7deg) scale(1.08); }
-  50%{ transform: translateY(0) rotate(-4deg) scale(1.06); }
-  75%{ transform: translateY(-1px) rotate(5deg) scale(1.08); }
-}
-@keyframes eyeBlinkLoop{
-  0%, 46%, 50%, 100%{ transform: scaleY(1); }
-  48%{ transform: scaleY(.16); }
-}
-/* ===== LOGIN LIVE FIX END ===== */
-
-/* ===== LOGIN HEADER INLINE PATCH START ===== */
-.login-v3-header-inline{
-  position: relative !important;
-  inset: auto !important;
-  top: auto !important;
-  left: auto !important;
-  right: auto !important;
-  width: 100%;
-  max-width: none;
-  margin-bottom: 12px;
-  z-index: 2;
-}
-
-.login-v3-header-inline .v3-brand,
-.login-v3-header-inline .v3-status-pill{
-  width: 100%;
-}
-
-.login-v3-header-inline .v3-status-pill{
-  justify-content: flex-start;
-}
-/* ===== LOGIN HEADER INLINE PATCH END ===== */
-
-/* LOGIN TEMP HEADER HIDE */
-.login-v3-header-left,
-.login-v3-header-right{
-  display:none !important;
-}
-
-
-
-/* ================================
-   NOC ELITE LOGIN EFFECTS
-================================ */
-
-/* hologram glow */
-.login-v3-card::before{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  border-radius:inherit;
-  background:
-    radial-gradient(circle at var(--mx) var(--my),
-      rgba(0,200,255,.25),
-      transparent 40%);
-  opacity:.6;
-  pointer-events:none;
-  filter:blur(14px);
-}
-
-/* packet particles */
-.packet{
-  position:absolute;
-  width:6px;
-  height:6px;
-  border-radius:999px;
-  background:#7ad7ff;
-  box-shadow:0 0 12px rgba(122,215,255,.6);
-  animation:packetMove linear infinite;
-}
-
-.packet.fast{ animation-duration:3s }
-.packet.mid{ animation-duration:5s }
-.packet.slow{ animation-duration:7s }
-
-@keyframes packetMove{
-  0%{
-    transform:translateX(-10vw);
-    opacity:0;
-  }
-  10%{opacity:1}
-  90%{opacity:1}
-  100%{
-    transform:translateX(110vw);
-    opacity:0;
-  }
-}
-
-/* AI face follow mouse */
-
-.face-widget.follow .face-eyes{
-  transform:translate(var(--fx),var(--fy));
-}
-
-/* elite shimmer */
-
-.login-v3-card{
-  animation:cardBreath 6s ease-in-out infinite;
-}
-
-@keyframes cardBreath{
-  0%,100%{
-    box-shadow:
-      0 28px 90px rgba(0,0,0,.34),
-      inset 0 1px 0 rgba(255,255,255,.02);
-  }
-
-  50%{
-    box-shadow:
-      0 34px 110px rgba(0,0,0,.42),
-      0 0 30px rgba(0,170,255,.15),
-      inset 0 1px 0 rgba(255,255,255,.02);
-  }
-}
 

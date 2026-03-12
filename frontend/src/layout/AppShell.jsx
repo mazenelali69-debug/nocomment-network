@@ -16,7 +16,7 @@ export default function AppShell({ children }) {
 
           <div>
             <div className="topbar-title">NoComment ISP</div>
-            <div className="topbar-subtitle">Enterprise network operations console</div>
+            <div className="topbar-subtitle">Enterprise NOC Console</div>
           </div>
 
           <div className="topbar-right-badge">
@@ -30,3 +30,4 @@ export default function AppShell({ children }) {
     </div>
   )
 }
+

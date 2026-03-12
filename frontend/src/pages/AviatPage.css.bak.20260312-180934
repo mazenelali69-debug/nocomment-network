@@ -158,7 +158,7 @@
 
 .aviat-topology-canvas{
   position:relative;
-  min-height:430px;
+  min-height: 280px;
   padding:72px 16px 16px;
 }
 
@@ -192,23 +192,23 @@
 
 .aviat-flow-left,
 .aviat-flow-right{
-  width: 170px;
+  width:118px;
   height: 8px;
-  top:162px;
+  top:142px;
   background: rgba(75, 155, 255, .24);
   box-shadow: 0 0 26px rgba(70,140,255,.22);
 }
 
 .aviat-flow-left{
-  left:calc(50% - 146px);
-  transform:rotate(24deg);
-  transform-origin:left center;
+  left:calc(50% - 104px);
+  transform:rotate(-36deg);
+  transform-origin: right center;
 }
 
 .aviat-flow-right{
-  right:calc(50% - 146px);
-  transform:rotate(-24deg);
-  transform-origin:right center;
+  right:calc(50% - 104px);
+  transform:rotate(-36deg);
+  transform-origin: left center;
 }
 @keyframes aviatSignal{
   0%   { transform: translateX(-140%); opacity: .25; }
@@ -220,7 +220,7 @@
 .aviat-node-box{
   position:absolute;
   z-index:6;
-  min-width: 170px;
+  min-width:150px;
   border-radius:18px;
   border:1px solid rgba(92,132,205,.16);
   background:
@@ -233,19 +233,19 @@
 }
 .aviat-node-box.radio{
   left:50%;
-  top:40px;
+  top:170px;
   transform:translateX(-50%);
-  min-width:214px;
+  min-width:190px;
 }
 
 .aviat-node-box.edge-a{
-  left:10%;
-  bottom:66px;
+  left:34%;
+  bottom:132px;
 }
 
 .aviat-node-box.edge-b{
-  right:10%;
-  bottom:66px;
+  right:34%;
+  bottom:132px;
 }
 
 .aviat-node-box.medium{ border-color:rgba(255,196,84,.24); }
@@ -564,7 +564,7 @@
 
 @media (max-width: 920px){
   .aviat-topology-canvas{
-    min-height: 540px;
+    min-height:420px;
     padding-top:72px;
   }
 }
@@ -603,120 +603,6 @@
   }
 }
 
-/* ===== AVIAT FINAL TOPOLOGY PATCH ===== */
-.aviat-flow,
-.aviat-flow-left,
-.aviat-flow-right,
-.aviat-flow-vertical{
-  display:none !important;
-}
 
-.aviat-topology-canvas-final{
-  position:relative;
-  min-height:300px !important;
-  padding:0 !important;
-  border-radius:18px;
-  overflow:hidden;
-}
 
-.aviat-topology-svg-final{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  z-index:2;
-  pointer-events:none;
-}
-
-.aviat-link-base-final{
-  fill:none;
-  stroke:rgba(90,160,255,.18);
-  stroke-width:12;
-  stroke-linecap:round;
-  filter:drop-shadow(0 0 10px rgba(90,160,255,.14));
-}
-
-.aviat-link-flow-final{
-  fill:none;
-  stroke:#7ce3ff;
-  stroke-width:7;
-  stroke-linecap:round;
-  stroke-dasharray:40 16;
-  animation:aviatFinalFlow 1.15s linear infinite;
-  filter:drop-shadow(0 0 14px rgba(124,227,255,.34));
-}
-
-@keyframes aviatFinalFlow{
-  from { stroke-dashoffset: 0; }
-  to   { stroke-dashoffset: -112; }
-}
-
-.aviat-node-box{
-  z-index:5 !important;
-  width:190px !important;
-}
-
-.aviat-node-box.edge-a{
-  left:17% !important;
-  top:20px !important;
-  bottom:auto !important;
-  transform:none !important;
-}
-
-.aviat-node-box.edge-b{
-  right:17% !important;
-  top:20px !important;
-  bottom:auto !important;
-  left:auto !important;
-  transform:none !important;
-}
-
-.aviat-node-box.radio{
-  left:50% !important;
-  top:150px !important;
-  bottom:auto !important;
-  transform:translateX(-50%) !important;
-  min-width:220px !important;
-}
-
-@media (max-width: 980px){
-  .aviat-topology-canvas-final{
-    min-height:340px !important;
-  }
-
-  .aviat-node-box.edge-a{
-    left:10% !important;
-  }
-
-  .aviat-node-box.edge-b{
-    right:10% !important;
-  }
-
-  .aviat-node-box.radio{
-    top:190px !important;
-  }
-}
-
-@media (max-width: 760px){
-  .aviat-topology-svg-final{
-    display:none !important;
-  }
-
-  .aviat-topology-canvas-final{
-    min-height:auto !important;
-    padding:0 !important;
-  }
-
-  .aviat-node-box{
-    position:relative !important;
-    width:100% !important;
-    left:auto !important;
-    right:auto !important;
-    top:auto !important;
-    bottom:auto !important;
-    transform:none !important;
-    margin-bottom:10px !important;
-  }
-}
-/* ===== AVIAT FINAL TOPOLOGY PATCH END ===== */
 

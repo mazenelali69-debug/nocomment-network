@@ -145,7 +145,7 @@ function NodeBox({ className = "", label, title, ip, total, util, pingMs, lossPc
   )
 }
 
-function TopologyMap({ uplink, edgeA, edgeB }) {
+function TopologyMap({ uplink, edgeA, edgeB, coreTotal }) {
   const leftSeverity = sevClass(edgeA?.utilPct ?? 0)
   const centerSeverity = sevClass(uplink?.utilPct ?? 0)
   const rightSeverity = sevClass(edgeB?.utilPct ?? 0)
@@ -163,16 +163,22 @@ function TopologyMap({ uplink, edgeA, edgeB }) {
         <span><i className="dot high"></i>Critical</span>
       </div>
 
-      <div className="aviat-topology-canvas aviat-topology-canvas-final">
+      <div className="aviat-topology-canvas">
         <div className="aviat-grid"></div>
 
-        <svg className="aviat-topology-svg-final" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true">
-          <path className="aviat-link-base-final" d="M 315 86 Q 408 122 472 184" />
-          <path className="aviat-link-flow-final" d="M 315 86 Q 408 122 472 184" />
-
-          <path className="aviat-link-base-final" d="M 685 86 Q 592 122 528 184" />
-          <path className="aviat-link-flow-final" d="M 685 86 Q 592 122 528 184" />
-        </svg>
+        <div className="aviat-flow aviat-flow-vertical"></div>
+        <div className="aviat-flow aviat-flow-left"></div>
+        <div className="aviat-flow aviat-flow-right"></div><NodeBox
+          className="radio"
+          label="Uplink"
+          title="Aviat WTM4200"
+          ip={uplink?.ip}
+          total={uplink?.total}
+          util={uplink?.utilPct}
+          severity={centerSeverity}
+          pingMs={uplink?.pingMs}
+          lossPct={uplink?.lossPct}
+        />
 
         <NodeBox
           className="edge-a"
@@ -196,18 +202,6 @@ function TopologyMap({ uplink, edgeA, edgeB }) {
           severity={rightSeverity}
           pingMs={edgeB?.pingMs}
           lossPct={edgeB?.lossPct}
-        />
-
-        <NodeBox
-          className="radio"
-          label="Uplink"
-          title="Aviat WTM4200"
-          ip={uplink?.ip}
-          total={uplink?.total}
-          util={uplink?.utilPct}
-          severity={centerSeverity}
-          pingMs={uplink?.pingMs}
-          lossPct={uplink?.lossPct}
         />
       </div>
     </div>
@@ -320,6 +314,7 @@ export default function AviatPage() {
         uplink={cards.uplink}
         edgeA={cards.edgeA}
         edgeB={cards.edgeB}
+        coreTotal={undefined}
       />
 
       <div className="aviat-bottom-mini">
@@ -376,6 +371,5 @@ export default function AviatPage() {
     </div>
   )
 }
-
 
 

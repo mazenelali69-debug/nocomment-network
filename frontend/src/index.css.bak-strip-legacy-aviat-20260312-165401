@@ -10,7 +10,6 @@
   --line-strong: rgba(195, 227, 255, 0.28);
   --text-soft: #9fb3d1;
   --panel-border: rgba(111, 155, 255, 0.13);
-}
 
 *{ box-sizing: border-box; }
 
@@ -18,7 +17,6 @@ html, body, #root{
   margin: 0;
   width: 100%;
   min-height: 100%;
-}
 
 body{
   min-height: 100vh;
@@ -27,20 +25,16 @@ body{
     radial-gradient(circle at 16% 18%, rgba(24,72,175,.34), transparent 22%),
     radial-gradient(circle at 78% 16%, rgba(0,220,255,.10), transparent 20%),
     linear-gradient(90deg, var(--bg-1) 0%, #04112a 36%, #071a3a 70%, #031122 100%);
-}
 
 a{
   color: inherit;
   text-decoration: none;
-}
 
 button, input{
   font: inherit;
-}
 
 .app-shell{
   min-height: 100vh;
-}
 
 .sidebar{
   position: fixed;
@@ -55,13 +49,11 @@ button, input{
   display: flex;
   flex-direction: column;
   z-index: 30;
-}
 
 .app-main{
   margin-left: var(--sidebar-width);
   min-height: 100vh;
   padding: 12px;
-}
 
 .topbar{
   min-height: 56px;
@@ -74,7 +66,6 @@ button, input{
   background: rgba(7, 19, 40, 0.32);
   backdrop-filter: blur(10px);
   box-shadow: 0 10px 24px rgba(0,0,0,.18);
-}
 
 .topbar-right-badge{
   margin-left: auto;
@@ -89,29 +80,24 @@ button, input{
   color: #dcecff;
   font-size: 11px;
   font-weight: 800;
-}
 
 .topbar-title{
   font-size: 15px;
   font-weight: 800;
   line-height: 1.05;
-}
 
 .topbar-subtitle{
   color: #97add0;
   font-size: 11px;
   margin-top: 2px;
-}
 
 .page-content{
   padding-top: 12px;
-}
 
 .brand-box{
   display: flex;
   align-items: center;
   gap: 12px;
-}
 
 .brand-mark{
   width: 48px;
@@ -123,7 +109,6 @@ button, input{
   color: white;
   background: linear-gradient(135deg, #0f4fff, #00d2ff);
   box-shadow: 0 8px 24px rgba(38, 126, 255, .35);
-}
 
 .wifi-mark{
   font-size: 22px;
@@ -131,25 +116,21 @@ button, input{
     radial-gradient(circle at 30% 30%, rgba(255,255,255,.22), transparent 35%),
     linear-gradient(135deg, #071f55, #0a3d92 55%, #0bb6d8);
   border: 1px solid rgba(96, 191, 255, .18);
-}
 
 .brand-title{
   font-size: 18px;
   font-weight: 800;
-}
 
 .brand-subtitle{
   color: #97add0;
   font-size: 12px;
   margin-top: 2px;
-}
 
 .nav-list{
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-top: 28px;
-}
 
 .nav-link{
   min-height: 52px;
@@ -161,20 +142,17 @@ button, input{
   color: #c9dbff;
   background: rgba(255,255,255,.015);
   transition: .2s ease;
-}
 
 .nav-link:hover{
   transform: translateY(-1px);
   border-color: rgba(99, 175, 255, .22);
   background: rgba(77, 163, 255, .07);
-}
 
 .nav-link.active{
   color: white;
   border-color: rgba(88, 181, 255, .28);
   background: linear-gradient(135deg, rgba(31, 106, 255, .18), rgba(0, 214, 255, .11));
   box-shadow: inset 0 0 0 1px rgba(120, 185, 255, .06);
-}
 
 .sidebar-footer{
   margin-top: auto;
@@ -187,7 +165,6 @@ button, input{
   gap: 10px;
   padding: 0 14px;
   color: #d5e8ff;
-}
 
 .status-dot,
 .status-live-dot{
@@ -197,7 +174,6 @@ button, input{
   background: #2cff8f;
   box-shadow: 0 0 14px rgba(44,255,143,.55);
   flex: 0 0 auto;
-}
 
 .mobile-menu-btn{
   display: none;
@@ -208,11 +184,9 @@ button, input{
   background: rgba(255,255,255,.04);
   color: white;
   cursor: pointer;
-}
 
 .page-header{
   margin-bottom: 22px;
-}
 
 .eyebrow{
   color: #66e3ff;
@@ -220,14 +194,12 @@ button, input{
   letter-spacing: .18em;
   font-weight: 800;
   margin-bottom: 10px;
-}
 
 .page-title{
   margin: 0;
   font-size: clamp(28px, 4vw, 42px);
   line-height: 1.05;
   font-weight: 900;
-}
 
 .page-text,
 .panel-text,
@@ -235,13 +207,11 @@ button, input{
 .hero-text{
   color: #9fb3d1;
   line-height: 1.7;
-}
 
 .card-grid{
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
-}
 
 .stat-card,
 .panel,
@@ -250,31 +220,26 @@ button, input{
   background: linear-gradient(180deg, rgba(7, 18, 39, .78), rgba(4, 12, 28, .74));
   box-shadow: 0 24px 70px rgba(0,0,0,.28);
   backdrop-filter: blur(14px);
-}
 
 .stat-card{
   border-radius: 24px;
   padding: 22px;
-}
 
 .stat-label{
   color: #66e3ff;
   font-size: 12px;
   font-weight: 800;
   letter-spacing: .14em;
-}
 
 .stat-value{
   font-size: 28px;
   font-weight: 900;
   margin: 12px 0 10px;
-}
 
 .panel{
   margin-top: 18px;
   border-radius: 24px;
   padding: 24px;
-}
 
 .hero-panel{
   min-height: 180px;
@@ -285,7 +250,6 @@ button, input{
   gap: 20px;
   align-items: center;
   margin-bottom: 18px;
-}
 
 .hero-kicker{
   color: #66e3ff;
@@ -293,14 +257,12 @@ button, input{
   font-weight: 800;
   letter-spacing: .18em;
   margin-bottom: 10px;
-}
 
 .hero-title{
   font-size: clamp(28px, 4vw, 40px);
   font-weight: 900;
   line-height: 1.08;
   margin-bottom: 10px;
-}
 
 .hero-badge{
   min-width: 120px;
@@ -315,7 +277,6 @@ button, input{
     radial-gradient(circle at 30% 30%, rgba(255,255,255,.08), transparent 40%),
     linear-gradient(135deg, rgba(17,83,211,.9), rgba(0,197,255,.65));
   box-shadow: 0 20px 40px rgba(0,0,0,.24);
-}
 
 .login-v3-screen{
   position: relative;
@@ -324,26 +285,22 @@ button, input{
   display: grid;
   place-items: center;
   padding: 24px;
-}
 
 .network-layer{
   position: absolute;
   inset: 0;
   pointer-events: none;
-}
 
 .network-svg{
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-}
 
 .network-segment{
   stroke: var(--line);
   stroke-width: 0.12;
   animation: linePulse 7s ease-in-out infinite;
-}
 
 .net-dot{
   position: absolute;
@@ -353,28 +310,24 @@ button, input{
   background: rgba(190, 221, 255, .52);
   box-shadow: 0 0 8px rgba(180, 219, 255, .18);
   animation: dotTwinkle 5s ease-in-out infinite;
-}
 
 .net-dot.strong{
   width: 4px;
   height: 4px;
   background: rgba(215, 236, 255, .75);
   box-shadow: 0 0 12px rgba(210, 234, 255, .24);
-}
 
 .login-v3-header-left{
   position: absolute;
   top: 22px;
   left: 22px;
   z-index: 3;
-}
 
 .login-v3-header-right{
   position: absolute;
   top: 22px;
   right: 22px;
   z-index: 3;
-}
 
 .v3-brand{
   display: flex;
@@ -385,7 +338,6 @@ button, input{
   background: rgba(5, 16, 35, .42);
   border: 1px solid rgba(96, 160, 255, .12);
   backdrop-filter: blur(12px);
-}
 
 .v3-brand-icon{
   width: 40px;
@@ -397,7 +349,6 @@ button, input{
     radial-gradient(circle at 30% 30%, rgba(255,255,255,.22), transparent 36%),
     linear-gradient(135deg, #0c2f72, #1359c1 58%, #18cbff);
   box-shadow: 0 10px 22px rgba(21, 101, 214, .22);
-}
 
 .v3-brand-ring{
   width: 16px;
@@ -406,19 +357,16 @@ button, input{
   border-radius: 999px;
   display: block;
   box-shadow: 0 0 10px rgba(255,255,255,.18);
-}
 
 .v3-brand-title{
   font-size: 18px;
   font-weight: 900;
   letter-spacing: -.02em;
-}
 
 .v3-brand-subtitle{
   font-size: 12px;
   color: #99aed1;
   margin-top: 2px;
-}
 
 .v3-status-pill{
   min-height: 40px;
@@ -433,7 +381,6 @@ button, input{
   backdrop-filter: blur(10px);
   box-shadow: 0 10px 24px rgba(0,0,0,.18);
   white-space: nowrap;
-}
 
 .v3-live-dot{
   width: 10px;
@@ -441,20 +388,17 @@ button, input{
   border-radius: 999px;
   background: #32f59a;
   box-shadow: 0 0 14px rgba(50,245,154,.5);
-}
 
 .v3-sep{
   width: 1px;
   height: 14px;
   background: rgba(255,255,255,.14);
-}
 
 .login-card-parallax-wrap{
   position: relative;
   z-index: 3;
   width: 100%;
   max-width: 420px;
-}
 
 .login-v3-card{
   position: relative;
@@ -471,7 +415,6 @@ button, input{
   transition: transform .16s ease-out, box-shadow .16s ease-out;
   --mx: 50%;
   --my: 50%;
-}
 
 .card-mouse-glow{
   position: absolute;
@@ -481,7 +424,6 @@ button, input{
   background:
     radial-gradient(circle at var(--mx) var(--my), rgba(95,170,255,.18), transparent 22%);
   mix-blend-mode: screen;
-}
 
 .login-v3-card h1,
 .v3-subtitle,
@@ -490,7 +432,6 @@ button, input{
 .v3-build{
   position: relative;
   z-index: 2;
-}
 
 .login-v3-card h1{
   margin: 0;
@@ -498,27 +439,23 @@ button, input{
   line-height: 1.02;
   font-weight: 900;
   letter-spacing: -.03em;
-}
 
 .v3-subtitle{
   margin: 10px 0 0;
   color: #a5b9d8;
   font-size: 13px;
   font-weight: 600;
-}
 
 .v3-form{
   display: grid;
   gap: 10px;
   margin-top: 18px;
-}
 
 .v3-label{
   font-size: 13px;
   color: #e2edff;
   font-weight: 700;
   margin-top: 6px;
-}
 
 .v3-input{
   width: 100%;
@@ -530,24 +467,19 @@ button, input{
   padding: 0 14px;
   outline: none;
   transition: .18s ease;
-}
 
 .v3-input::placeholder{
   color: #8095b5;
-}
 
 .v3-input:focus{
   border-color: rgba(79, 175, 255, .42);
   box-shadow: 0 0 0 4px rgba(58, 140, 255, .09);
-}
 
 .v3-password-wrap{
   position: relative;
-}
 
 .v3-password-wrap .v3-input{
   padding-right: 54px;
-}
 
 .v3-eye-btn{
   position: absolute;
@@ -561,7 +493,6 @@ button, input{
   background: rgba(255,255,255,.03);
   color: #cfddf5;
   cursor: pointer;
-}
 
 .v3-login-btn{
   margin-top: 8px;
@@ -578,7 +509,6 @@ button, input{
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,.06),
     0 10px 20px rgba(9, 47, 114, .16);
-}
 
 .v3-footer{
   margin-top: 18px;
@@ -586,7 +516,6 @@ button, input{
   font-size: 11px;
   color: #a1b3d0;
   font-weight: 600;
-}
 
 .v3-build{
   width: fit-content;
@@ -602,42 +531,36 @@ button, input{
   color: #e3edff;
   font-size: 12px;
   font-weight: 800;
-}
 
 .mobile-overlay{
   display: none;
-}
 
 @keyframes linePulse{
   0%,100%{ opacity: .38; stroke: var(--line); }
   50%{ opacity: .95; stroke: var(--line-strong); }
+
 }
 
 @keyframes dotTwinkle{
-  0%,100%{ opacity: .28; transform: scale(1); }
-  50%{ opacity: .88; transform: scale(1.45); }
+
 }
 
 @media (max-width: 1100px){
   .card-grid{
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-}
 
 @media (max-width: 860px){
   .mobile-menu-btn{
     display: inline-grid;
     place-items: center;
-  }
 
   .sidebar{
     transform: translateX(-100%);
     transition: transform .25s ease;
-  }
 
   .sidebar.mobile-open{
     transform: translateX(0);
-  }
 
   .mobile-overlay{
     display: block;
@@ -648,18 +571,15 @@ button, input{
     pointer-events: none;
     transition: .25s ease;
     z-index: 20;
-  }
 
   .mobile-overlay.show{
     opacity: 1;
     pointer-events: auto;
-  }
 
   .app-main{
   margin-left: var(--sidebar-width);
   min-height: 100vh;
   padding: 12px;
-}
 
   .topbar{
   min-height: 56px;
@@ -672,7 +592,6 @@ button, input{
   background: rgba(7, 19, 40, 0.32);
   backdrop-filter: blur(10px);
   box-shadow: 0 10px 24px rgba(0,0,0,.18);
-}
 
   .topbar-right-badge{
   margin-left: auto;
@@ -687,79 +606,88 @@ button, input{
   color: #dcecff;
   font-size: 11px;
   font-weight: 800;
-}
 
   .login-v3-screen{
     align-content: start;
     padding-top: 18px;
-  }
 
   .login-v3-header-left,
   .login-v3-header-right{
     position: static;
     width: 100%;
     max-width: 420px;
-  }
 
   .login-v3-header-left{
     margin-bottom: 12px;
-  }
 
   .login-v3-header-right{
     margin-bottom: 14px;
-  }
 
   .v3-status-pill{
     width: 100%;
     justify-content: flex-start;
     overflow: hidden;
     font-size: 12px;
-  }
 
   .card-grid{
     grid-template-columns: 1fr;
-  }
 
   .hero-panel{
     flex-direction: column;
     align-items: flex-start;
   }
-}
 
 @media (max-width: 560px){
   .login-v3-card{
     padding: 24px 18px 18px;
     border-radius: 22px;
-  }
 
   .login-v3-card h1{
     font-size: 32px;
-  }
 
   .v3-brand-title{
     font-size: 16px;
-  }
 
   .v3-brand-subtitle{
     font-size: 11px;
-  }
 
   .v3-status-pill{
     gap: 8px;
-  }
 
   .page-title,
   .hero-title{
     font-size: 28px;
-  }
 
   .stat-card,
   .panel,
   .hero-panel{
     border-radius: 20px;
     padding: 18px;
-}
-}
+  }
+
+.drift-a{
+  animation: networkDriftA 7s ease-in-out infinite alternate;
+
+.drift-b{
+  animation: networkDriftB 8s ease-in-out infinite alternate;
+
+.drift-c{
+  animation: networkDriftC 7.5s ease-in-out infinite alternate;
+
+@keyframes networkDriftA{
+  0%   { transform: translate3d(0px,0px,0px); }
+  50%  { transform: translate3d(10px,-8px,0px); }
+  100% { transform: translate3d(-8px,10px,0px); }
+
+@keyframes networkDriftB{
+  0%   { transform: translate3d(0px,0px,0px); }
+  50%  { transform: translate3d(-12px,6px,0px); }
+  100% { transform: translate3d(8px,-10px,0px); }
+
+@keyframes networkDriftC{
+  0%   { transform: translate3d(0px,0px,0px); }
+  50%  { transform: translate3d(14px,8px,0px); }
+  100% { transform: translate3d(-10px,-6px,0px); }
 
 .face-widget{
   position: relative;
@@ -768,7 +696,6 @@ button, input{
   display: grid;
   place-items: center;
   margin-bottom: 12px;
-}
 
 .face-head{
   position: relative;
@@ -783,7 +710,6 @@ button, input{
     0 12px 28px rgba(0,0,0,.24),
     inset 0 1px 0 rgba(255,255,255,.05);
   transition: transform .22s ease, box-shadow .22s ease, filter .22s ease;
-}
 
 .face-eyes{
   position: absolute;
@@ -794,7 +720,6 @@ button, input{
   justify-content: center;
   gap: 14px;
   transition: transform .18s ease;
-}
 
 .eye{
   width: 8px;
@@ -803,7 +728,6 @@ button, input{
   background: #edf6ff;
   box-shadow: 0 0 6px rgba(255,255,255,.12);
   transition: transform .18s ease, width .18s ease, height .18s ease, border-radius .18s ease;
-}
 
 .face-mouth{
   position: absolute;
@@ -815,7 +739,6 @@ button, input{
   border-bottom: 2px solid #edf6ff;
   border-radius: 0 0 16px 16px;
   transition: all .2s ease;
-}
 
 .face-blush{
   position: absolute;
@@ -826,7 +749,6 @@ button, input{
   background: rgba(255, 135, 170, .12);
   opacity: 0;
   transition: opacity .2s ease;
-}
 
 .face-blush.left{ left: 12px; }
 .face-blush.right{ right: 12px; }
@@ -837,7 +759,6 @@ button, input{
   color: #93a9cc;
   font-weight: 700;
   letter-spacing: .02em;
-}
 
 .face-hand{
   position: absolute;
@@ -848,7 +769,6 @@ button, input{
   transform: translateY(6px) rotate(-14deg);
   transition: all .28s ease;
   pointer-events: none;
-}
 
 .face-widget.look-user .face-eyes{
   position: absolute;
@@ -859,7 +779,6 @@ button, input{
   justify-content: center;
   gap: 14px;
   transition: transform .18s ease;
-}
 
 .face-widget.look-pass .face-eyes{
   position: absolute;
@@ -870,7 +789,6 @@ button, input{
   justify-content: center;
   gap: 14px;
   transition: transform .18s ease;
-}
 
 .face-widget.typing-user .face-head{
   position: relative;
@@ -885,7 +803,6 @@ button, input{
     0 12px 28px rgba(0,0,0,.24),
     inset 0 1px 0 rgba(255,255,255,.05);
   transition: transform .22s ease, box-shadow .22s ease, filter .22s ease;
-}
 
 .face-widget.typing-pass .eye{
   width: 8px;
@@ -894,7 +811,6 @@ button, input{
   background: #edf6ff;
   box-shadow: 0 0 6px rgba(255,255,255,.12);
   transition: transform .18s ease, width .18s ease, height .18s ease, border-radius .18s ease;
-}
 
 .face-widget.sad .face-head{
   position: relative;
@@ -909,14 +825,12 @@ button, input{
     0 12px 28px rgba(0,0,0,.24),
     inset 0 1px 0 rgba(255,255,255,.05);
   transition: transform .22s ease, box-shadow .22s ease, filter .22s ease;
-}
 
 .face-widget.sad .face-mouth{
   border-bottom: 0;
   border-top: 2px solid #edf6ff;
   border-radius: 16px 16px 0 0;
   top: 47px;
-}
 
 .face-widget.sad .eye{
   width: 8px;
@@ -925,7 +839,6 @@ button, input{
   background: #edf6ff;
   box-shadow: 0 0 6px rgba(255,255,255,.12);
   transition: transform .18s ease, width .18s ease, height .18s ease, border-radius .18s ease;
-}
 
 .face-widget.happy .face-mouth,
 .face-widget.success .face-mouth{
@@ -933,7 +846,6 @@ button, input{
   height: 10px;
   border-bottom-width: 3px;
   border-radius: 0 0 18px 18px;
-}
 
 .face-widget.happy .face-blush,
 .face-widget.success .face-blush{
@@ -945,7 +857,6 @@ button, input{
   background: rgba(255, 135, 170, .12);
   opacity: 0;
   transition: opacity .2s ease;
-}
 
 .face-widget.success .face-head{
   transform: translateY(-1px) scale(1.02);
@@ -953,7 +864,6 @@ button, input{
     0 16px 34px rgba(0,0,0,.26),
     0 0 18px rgba(50,245,154,.10),
     inset 0 1px 0 rgba(255,255,255,.05);
-}
 
 .face-widget.success .face-hand{
   position: absolute;
@@ -964,7 +874,6 @@ button, input{
   transform: translateY(6px) rotate(-14deg);
   transition: all .28s ease;
   pointer-events: none;
-}
 
 .v3-error{
   min-height: 40px;
@@ -975,7 +884,6 @@ button, input{
   color: #ffb8c4;
   font-size: 13px;
   font-weight: 700;
-}
 
 .v3-demo-note{
   margin-top: 14px;
@@ -983,7 +891,31 @@ button, input{
   font-size: 12px;
   color: #8ea7ca;
   font-weight: 700;
-}
+
+.drift-a{
+  animation: networkDriftA 7s ease-in-out infinite alternate;
+
+.drift-b{
+  animation: networkDriftB 8s ease-in-out infinite alternate;
+
+.drift-c{
+  animation: networkDriftC 7.5s ease-in-out infinite alternate;
+
+@keyframes networkDriftA{
+  0%   { transform: translate3d(0px,0px,0px); }
+  50%  { transform: translate3d(16px,-10px,0px); }
+  100% { transform: translate3d(-12px,14px,0px); }
+
+@keyframes networkDriftB{
+  0%   { transform: translate3d(0px,0px,0px); }
+  50%  { transform: translate3d(-18px,8px,0px); }
+  100% { transform: translate3d(10px,-14px,0px); }
+
+@keyframes networkDriftC{
+  0%   { transform: translate3d(0px,0px,0px); }
+  50%  { transform: translate3d(18px,10px,0px); }
+  100% { transform: translate3d(-12px,-8px,0px); }
+
 .intro-overlay{
   position: fixed;
   inset: 0;
@@ -996,13 +928,11 @@ button, input{
   opacity: 1;
   visibility: visible;
   transition: opacity .7s ease, visibility .7s ease;
-}
 
 .intro-overlay.intro-overlay-done{
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-}
 
 .intro-center{
   display: grid;
@@ -1010,7 +940,6 @@ button, input{
   gap: 28px;
   transform: translateY(0);
   animation: introCenterFloat 2.2s ease-in-out infinite alternate;
-}
 
 .intro-logo-wrap{
   display: flex;
@@ -1021,7 +950,6 @@ button, input{
   background: rgba(5, 16, 35, .42);
   border: 1px solid rgba(96, 160, 255, .16);
   box-shadow: 0 20px 60px rgba(0,0,0,.34);
-}
 
 .intro-logo-icon{
   width: 64px;
@@ -1036,7 +964,6 @@ button, input{
     0 16px 36px rgba(21, 101, 214, .24),
     0 0 0 1px rgba(255,255,255,.04) inset;
   animation: introLogoSpinPulse 1.8s ease-in-out infinite;
-}
 
 .intro-logo-ring{
   width: 26px;
@@ -1045,27 +972,23 @@ button, input{
   border-radius: 999px;
   display: block;
   box-shadow: 0 0 14px rgba(255,255,255,.16);
-}
 
 .intro-logo-title{
   font-size: 34px;
   font-weight: 900;
   letter-spacing: -.03em;
   color: #f3f8ff;
-}
 
 .intro-logo-subtitle{
   margin-top: 4px;
   font-size: 13px;
   color: #9bb2d5;
   font-weight: 700;
-}
 
 .intro-boot{
   width: min(520px, 92vw);
   display: grid;
   gap: 10px;
-}
 
 .intro-line{
   min-height: 42px;
@@ -1080,7 +1003,6 @@ button, input{
   font-weight: 700;
   opacity: 0;
   transform: translateY(10px);
-}
 
 .intro-line.l1{ animation: introLineIn .45s ease forwards .15s; }
 .intro-line.l2{ animation: introLineIn .45s ease forwards .55s; }
@@ -1090,54 +1012,44 @@ button, input{
   opacity: 0;
   transform: translateY(-10px);
   pointer-events: none;
-}
 
 .intro-corner-show{
   opacity: 1;
   transform: translateY(0);
   transition: opacity .5s ease 2.1s, transform .5s ease 2.1s;
-}
 
 .intro-card-hidden{
   opacity: 0;
   transform: translateY(30px) scale(.96);
   pointer-events: none;
-}
 
 .intro-card-ready{
   opacity: 1;
   transform: translateY(0) scale(1);
   transition: opacity .65s ease 2s, transform .65s ease 2s;
-}
 
 .intro-face-hidden{
   opacity: 0;
   transform: translateY(8px) scale(.96);
-}
 
 .intro-face-ready{
   opacity: 1;
   transform: translateY(0) scale(1);
   transition: opacity .55s ease 2.2s, transform .55s ease 2.2s;
   animation: introFaceBlink 4.5s ease-in-out 2.6s infinite;
-}
 
 .network-layer{
   transition: opacity .7s ease;
-}
 
 .network-layer .network-segment,
 .network-layer .net-dot{
   opacity: .12;
-}
 
 .network-layer.intro-done .network-segment{
   opacity: 1;
-}
 
 .network-layer.intro-done .net-dot{
   opacity: 1;
-}
 
 @keyframes introLogoSpinPulse{
   0%,100%{
@@ -1153,7 +1065,6 @@ button, input{
       0 0 22px rgba(85, 176, 255, .12),
       0 0 0 1px rgba(255,255,255,.04) inset;
   }
-}
 
 @keyframes introLineIn{
   from{
@@ -1164,22 +1075,18 @@ button, input{
     opacity: 1;
     transform: translateY(0);
   }
-}
 
 @keyframes introCenterFloat{
   from{ transform: translateY(-3px); }
   to{ transform: translateY(4px); }
-}
 
 @keyframes introFaceBlink{
   0%, 46%, 50%, 100% { }
   48% { }
-}
 
 .intro-face-ready .eye{
   animation: eyeBlinkLoop 4.5s ease-in-out infinite;
   animation-delay: 2.6s;
-}
 
 @keyframes eyeBlinkLoop{
   0%, 46%, 50%, 100%{
@@ -1188,12 +1095,10 @@ button, input{
   48%{
     transform: scaleY(.18);
   }
-}
 
 .aviat-page{
   display: grid;
   gap: 18px;
-}
 
 .aviat-headline-bar{
   min-height: 62px;
@@ -1207,19 +1112,16 @@ button, input{
   justify-content: space-between;
   gap: 12px;
   align-items: center;
-}
 
 .aviat-headline-left{
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-}
 
 .aviat-headline-right{
   display: flex;
   align-items: center;
   gap: 10px;
-}
 
 .aviat-chip{
   min-height: 34px;
@@ -1232,13 +1134,11 @@ button, input{
   color: #d9e8ff;
   font-size: 12px;
   font-weight: 700;
-}
 
 .aviat-grid{
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
-}
 
 .aviat-card{
   border-radius: 24px;
@@ -1249,20 +1149,17 @@ button, input{
   padding: 20px;
   display: grid;
   gap: 16px;
-}
 
 .aviat-card-top{
   display: flex;
   justify-content: space-between;
   gap: 14px;
   align-items: flex-start;
-}
 
 .aviat-card-right{
   display: grid;
   gap: 8px;
   justify-items: end;
-}
 
 .aviat-card-kicker{
   color: #66e3ff;
@@ -1270,25 +1167,21 @@ button, input{
   letter-spacing: .16em;
   font-weight: 800;
   margin-bottom: 8px;
-}
 
 .aviat-card-title{
   font-size: 24px;
   font-weight: 900;
   line-height: 1.05;
-}
 
 .aviat-card-subtitle{
   margin-top: 8px;
   color: #98b0d3;
   font-size: 12px;
-}
 
 .aviat-stats-grid{
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
-}
 
 .aviat-mini-stat{
   min-height: 90px;
@@ -1299,21 +1192,18 @@ button, input{
   display: grid;
   align-content: start;
   gap: 8px;
-}
 
 .aviat-mini-label{
   color: #8ea7ca;
   font-size: 11px;
   letter-spacing: .12em;
   font-weight: 800;
-}
 
 .aviat-mini-value{
   font-size: 24px;
   font-weight: 900;
   line-height: 1.1;
   word-break: break-word;
-}
 
 .aviat-progress{
   width: 100%;
@@ -1322,7 +1212,6 @@ button, input{
   overflow: hidden;
   background: rgba(255,255,255,.05);
   border: 1px solid rgba(120,170,255,.08);
-}
 
 .aviat-progress-bar{
   height: 100%;
@@ -1330,7 +1219,6 @@ button, input{
   background: linear-gradient(90deg, #1f6aff, #00d6ff);
   box-shadow: 0 0 14px rgba(70, 165, 255, .22);
   transition: width .5s ease;
-}
 
 .aviat-footer-row{
   display: flex;
@@ -1339,7 +1227,6 @@ button, input{
   color: #8ea7ca;
   font-size: 11px;
   word-break: break-all;
-}
 
 .aviat-badge,
 .aviat-status{
@@ -1353,43 +1240,36 @@ button, input{
   font-weight: 800;
   letter-spacing: .08em;
   text-transform: uppercase;
-}
 
 .aviat-status.online{
   color: #dffff0;
   background: rgba(44,255,143,.10);
   border: 1px solid rgba(44,255,143,.18);
-}
 
 .aviat-status.warmup{
   color: #fff3d6;
   background: rgba(255,194,61,.10);
   border: 1px solid rgba(255,194,61,.18);
-}
 
 .aviat-status.offline{
   color: #ffd6dc;
   background: rgba(255,86,110,.10);
   border: 1px solid rgba(255,86,110,.18);
-}
 
 .aviat-badge.normal{
   color: #d8ebff;
   background: rgba(89,166,255,.10);
   border: 1px solid rgba(89,166,255,.18);
-}
 
 .aviat-badge.medium{
   color: #fff0d5;
   background: rgba(255,170,45,.10);
   border: 1px solid rgba(255,170,45,.18);
-}
 
 .aviat-badge.high{
   color: #ffd8de;
   background: rgba(255,86,110,.10);
   border: 1px solid rgba(255,86,110,.18);
-}
 
 .aviat-empty{
   color: #92a9cb;
@@ -1398,39 +1278,32 @@ button, input{
   place-items: center;
   border-radius: 18px;
   border: 1px dashed rgba(120,170,255,.10);
-}
 
 @media (max-width: 1100px){
   .aviat-grid{
     grid-template-columns: 1fr;
   }
-}
 
 @media (max-width: 700px){
   .aviat-headline-bar{
     align-items: flex-start;
     flex-direction: column;
-  }
 
   .aviat-stats-grid{
     grid-template-columns: 1fr;
-  }
 
   .aviat-card-top,
   .aviat-footer-row{
     flex-direction: column;
-  }
 
   .aviat-card-right{
     justify-items: start;
   }
-}
 
 /* AVIAT-NOC-START */
 .aviat-noc-page{
   display:grid;
   gap:20px;
-}
 
 .aviat-master-bar{
   position:relative;
@@ -1448,7 +1321,6 @@ button, input{
   justify-content:space-between;
   gap:18px;
   align-items:flex-start;
-}
 
 .aviat-master-bar::after{
   content:"";
@@ -1459,7 +1331,6 @@ button, input{
   border-radius:999px;
   background:radial-gradient(circle, rgba(84,172,255,.08), transparent 60%);
   pointer-events:none;
-}
 
 .aviat-master-right{
   display:flex;
@@ -1468,7 +1339,6 @@ button, input{
   flex-wrap:wrap;
   position:relative;
   z-index:1;
-}
 
 .aviat-master-live,
 .aviat-master-sev,
@@ -1484,19 +1354,16 @@ button, input{
   font-weight:800;
   letter-spacing:.08em;
   text-transform:uppercase;
-}
 
 .aviat-master-live.online{
   color:#dffff0;
   background:rgba(44,255,143,.10);
   border:1px solid rgba(44,255,143,.18);
-}
 
 .aviat-master-live.offline{
   color:#ffd6dc;
   background:rgba(255,86,110,.10);
   border:1px solid rgba(255,86,110,.18);
-}
 
 .master-live-dot{
   width:9px;
@@ -1506,31 +1373,26 @@ button, input{
   background:#2cff8f;
   box-shadow:0 0 14px rgba(44,255,143,.45);
   animation: aviPulse 1.6s ease-in-out infinite;
-}
 
 .aviat-master-sev.normal{
   color:#d8ebff;
   background:rgba(89,166,255,.10);
   border:1px solid rgba(89,166,255,.18);
-}
 
 .aviat-master-sev.medium{
   color:#fff0d5;
   background:rgba(255,170,45,.10);
   border:1px solid rgba(255,170,45,.18);
-}
 
 .aviat-master-sev.high{
   color:#ffd8de;
   background:rgba(255,86,110,.10);
   border:1px solid rgba(255,86,110,.18);
-}
 
 .aviat-top-stats{
   display:grid;
   grid-template-columns:repeat(4, minmax(0,1fr));
   gap:18px;
-}
 
 .aviat-top-stat{
   border-radius:24px;
@@ -1541,7 +1403,6 @@ button, input{
   padding:18px;
   display:grid;
   gap:10px;
-}
 
 .aviat-top-stat.normal{ box-shadow:0 24px 70px rgba(0,0,0,.28); }
 .aviat-top-stat.medium{ box-shadow:0 24px 70px rgba(255,170,45,.10); }
@@ -1552,18 +1413,15 @@ button, input{
   font-size:11px;
   font-weight:800;
   letter-spacing:.14em;
-}
 
 .aviat-top-stat-value{
   font-size:30px;
   font-weight:900;
   line-height:1.05;
-}
 
 .aviat-top-stat-sub{
   color:#93abd0;
   font-size:12px;
-}
 
 .aviat-topology-panel{
   border-radius:28px;
@@ -1576,14 +1434,12 @@ button, input{
   gap:20px;
   overflow:hidden;
   position:relative;
-}
 
 .aviat-panel-head{
   display:flex;
   justify-content:space-between;
   gap:12px;
   align-items:flex-start;
-}
 
 .aviat-panel-kicker{
   color:#66e3ff;
@@ -1591,25 +1447,21 @@ button, input{
   font-weight:800;
   letter-spacing:.16em;
   margin-bottom:8px;
-}
 
 .aviat-panel-title{
   font-size:26px;
   font-weight:900;
   line-height:1.05;
-}
 
 .aviat-panel-head-right{
   display:flex;
   gap:10px;
   flex-wrap:wrap;
-}
 
 .aviat-panel-pill{
   background:rgba(255,255,255,.03);
   border:1px solid rgba(120,170,255,.10);
   color:#d9e8ff;
-}
 
 .aviat-topology-canvas{
   position:relative;
@@ -1620,7 +1472,6 @@ button, input{
     radial-gradient(circle at center, rgba(22,64,142,.08), transparent 38%),
     linear-gradient(180deg, rgba(4,12,28,.64), rgba(4,12,28,.58));
   border:1px solid rgba(120,170,255,.08);
-}
 
 .aviat-grid-bg{
   position:absolute;
@@ -1631,7 +1482,6 @@ button, input{
   background-size:34px 34px;
   mask-image:radial-gradient(circle at center, black 30%, transparent 88%);
   pointer-events:none;
-}
 
 .aviat-node{
   position:absolute;
@@ -1643,7 +1493,6 @@ button, input{
   padding:18px;
   min-width:220px;
   z-index:3;
-}
 
 .aviat-node.high{
   border-color:rgba(255,86,110,.26);
@@ -1655,31 +1504,26 @@ button, input{
 }
 .aviat-node.normal{
   border-color:rgba(89,166,255,.18);
-}
 
 .avi-internet{
   top:28px;
   left:50%;
   transform:translateX(-50%);
   min-width:220px;
-}
 
 .avi-radio{
   top:150px;
   left:50%;
   transform:translateX(-50%);
   min-width:250px;
-}
 
 .avi-switch-a{
   left:11%;
   bottom:36px;
-}
 
 .avi-switch-b{
   right:11%;
   bottom:36px;
-}
 
 .avi-node-kicker{
   color:#66e3ff;
@@ -1687,38 +1531,32 @@ button, input{
   letter-spacing:.14em;
   font-weight:800;
   margin-bottom:8px;
-}
 
 .avi-node-title{
   font-size:26px;
   font-weight:900;
   line-height:1.05;
-}
 
 .avi-node-sub{
   color:#96aed2;
   font-size:12px;
   margin-top:8px;
-}
 
 .avi-node-speed{
   margin-top:10px;
   font-size:24px;
   font-weight:900;
-}
 
 .avi-node-util{
   margin-top:6px;
   color:#dceaff;
   font-size:13px;
   font-weight:800;
-}
 
 .aviat-link{
   position:absolute;
   z-index:2;
   pointer-events:none;
-}
 
 .aviat-link.vertical{
   left:50%;
@@ -1726,7 +1564,6 @@ button, input{
   width:4px;
   height:85px;
   transform:translateX(-50%);
-}
 
 .aviat-link.split-left{
   left:33%;
@@ -1735,7 +1572,6 @@ button, input{
   height:120px;
   transform:rotate(36deg);
   transform-origin:left center;
-}
 
 .aviat-link.split-right{
   right:33%;
@@ -1744,7 +1580,6 @@ button, input{
   height:120px;
   transform:rotate(-36deg);
   transform-origin:right center;
-}
 
 .aviat-link::before{
   content:"";
@@ -1752,15 +1587,12 @@ button, input{
   inset:0;
   border-radius:999px;
   background:linear-gradient(180deg, rgba(85,160,255,.18), rgba(85,160,255,.06));
-}
 
 .aviat-link.medium::before{
   background:linear-gradient(180deg, rgba(255,170,45,.26), rgba(255,170,45,.08));
-}
 
 .aviat-link.high::before{
   background:linear-gradient(180deg, rgba(255,86,110,.30), rgba(255,86,110,.10));
-}
 
 .flow-dot{
   position:absolute;
@@ -1770,17 +1602,14 @@ button, input{
   background:#7ad7ff;
   box-shadow:0 0 14px rgba(122,215,255,.45);
   animation:aviFlow 2s linear infinite;
-}
 
 .aviat-link.medium .flow-dot{
   background:#ffd36b;
   box-shadow:0 0 14px rgba(255,211,107,.42);
-}
 
 .aviat-link.high .flow-dot{
   background:#ff7d98;
   box-shadow:0 0 14px rgba(255,125,152,.42);
-}
 
 .aviat-link.vertical .flow-dot{
   left:50%;
@@ -1805,7 +1634,6 @@ button, input{
   display:grid;
   grid-template-columns:repeat(3, minmax(0,1fr));
   gap:18px;
-}
 
 .aviat-elite-card{
   border-radius:26px;
@@ -1820,7 +1648,6 @@ button, input{
   gap:16px;
   position:relative;
   overflow:hidden;
-}
 
 .aviat-elite-card::after{
   content:"";
@@ -1832,14 +1659,12 @@ button, input{
   border-radius:999px;
   background:radial-gradient(circle, rgba(90,160,255,.08), transparent 64%);
   pointer-events:none;
-}
 
 .aviat-elite-card.medium::after{
   background:radial-gradient(circle, rgba(255,170,45,.10), transparent 64%);
 }
 .aviat-elite-card.high::after{
   background:radial-gradient(circle, rgba(255,86,110,.12), transparent 64%);
-}
 
 .aviat-elite-card-head{
   display:flex;
@@ -1848,13 +1673,11 @@ button, input{
   align-items:flex-start;
   position:relative;
   z-index:1;
-}
 
 .aviat-elite-head-right{
   display:grid;
   gap:8px;
   justify-items:end;
-}
 
 .aviat-elite-kicker{
   color:#66e3ff;
@@ -1862,19 +1685,16 @@ button, input{
   letter-spacing:.16em;
   font-weight:800;
   margin-bottom:8px;
-}
 
 .aviat-elite-title{
   font-size:28px;
   font-weight:900;
   line-height:1.05;
-}
 
 .aviat-elite-sub{
   margin-top:8px;
   color:#97aed2;
   font-size:12px;
-}
 
 .aviat-live-badge,
 .aviat-sev-badge{
@@ -1888,7 +1708,6 @@ button, input{
   font-weight:800;
   letter-spacing:.08em;
   text-transform:uppercase;
-}
 
 .aviat-live-badge.online{
   color:#dffff0;
@@ -1904,7 +1723,6 @@ button, input{
   color:#ffd6dc;
   background:rgba(255,86,110,.10);
   border:1px solid rgba(255,86,110,.18);
-}
 
 .aviat-sev-badge.normal{
   color:#d8ebff;
@@ -1920,28 +1738,24 @@ button, input{
   color:#ffd8de;
   background:rgba(255,86,110,.10);
   border:1px solid rgba(255,86,110,.18);
-}
 
 .aviat-hero-number-wrap{
   position:relative;
   z-index:1;
   display:grid;
   gap:6px;
-}
 
 .aviat-hero-number{
   font-size:40px;
   line-height:1;
   font-weight:900;
   letter-spacing:-.03em;
-}
 
 .aviat-hero-caption{
   color:#8da6ca;
   font-size:11px;
   font-weight:800;
   letter-spacing:.16em;
-}
 
 .aviat-mini-metrics{
   display:grid;
@@ -1949,7 +1763,6 @@ button, input{
   gap:12px;
   position:relative;
   z-index:1;
-}
 
 .aviat-metric{
   min-height:88px;
@@ -1960,28 +1773,24 @@ button, input{
   display:grid;
   align-content:start;
   gap:8px;
-}
 
 .aviat-metric-label{
   color:#8ea7ca;
   font-size:11px;
   letter-spacing:.12em;
   font-weight:800;
-}
 
 .aviat-metric-value{
   font-size:22px;
   line-height:1.1;
   font-weight:900;
   word-break:break-word;
-}
 
 .aviat-util-block{
   position:relative;
   z-index:1;
   display:grid;
   gap:10px;
-}
 
 .aviat-util-row{
   display:flex;
@@ -1991,7 +1800,6 @@ button, input{
   font-size:12px;
   font-weight:800;
   letter-spacing:.08em;
-}
 
 .aviat-util-bar-shell{
   width:100%;
@@ -2000,7 +1808,6 @@ button, input{
   overflow:hidden;
   background:rgba(255,255,255,.05);
   border:1px solid rgba(120,170,255,.08);
-}
 
 .aviat-util-bar{
   height:100%;
@@ -2016,14 +1823,12 @@ button, input{
 .aviat-util-bar.high{
   background:linear-gradient(90deg, #ff4e6e, #ff8a9d);
   box-shadow:0 0 14px rgba(255,78,110,.22);
-}
 
 .aviat-oid-lines{
   position:relative;
   z-index:1;
   display:grid;
   gap:8px;
-}
 
 .aviat-oid-lines > div{
   display:flex;
@@ -2032,19 +1837,16 @@ button, input{
   font-size:11px;
   color:#8ea7ca;
   word-break:break-all;
-}
 
 .aviat-oid-lines > div > span:first-child{
   color:#dceaff;
   font-weight:800;
   min-width:34px;
-}
 
 .aviat-bottom-bar{
   display:flex;
   flex-wrap:wrap;
   gap:10px;
-}
 
 .aviat-bottom-pill{
   background:rgba(255,255,255,.03);
@@ -2060,7 +1862,6 @@ button, input{
   color:#ffd8de;
   background:rgba(255,86,110,.10);
   border:1px solid rgba(255,86,110,.18);
-}
 
 .aviat-empty-block{
   min-height:160px;
@@ -2069,58 +1870,47 @@ button, input{
   place-items:center;
   color:#8ea7ca;
   border:1px dashed rgba(120,170,255,.10);
-}
 
 @keyframes aviPulse{
   0%,100%{ transform:scale(1); opacity:1; }
   50%{ transform:scale(1.15); opacity:.72; }
-}
 
 @keyframes aviFlow{
   0%,100%{ transform:translateY(0) scale(1); opacity:.9; }
   50%{ transform:translateY(-2px) scale(1.18); opacity:1; }
-}
 
 @media (max-width: 1200px){
   .aviat-top-stats{
     grid-template-columns:repeat(2, minmax(0,1fr));
-  }
 
   .aviat-elite-grid{
     grid-template-columns:1fr;
   }
-}
 
 @media (max-width: 900px){
   .aviat-master-bar,
   .aviat-panel-head{
     flex-direction:column;
-  }
 
   .aviat-topology-canvas{
     min-height:620px;
-  }
 
   .avi-internet{
     top:24px;
-  }
 
   .avi-radio{
     top:160px;
-  }
 
   .avi-switch-a{
     left:50%;
     transform:translateX(-50%);
     bottom:170px;
-  }
 
   .avi-switch-b{
     left:50%;
     right:auto;
     transform:translateX(-50%);
     bottom:24px;
-  }
 
   .aviat-link.split-left{
     left:50%;
@@ -2128,7 +1918,6 @@ button, input{
     width:4px;
     height:110px;
     transform:translateX(-50%);
-  }
 
   .aviat-link.split-right{
     left:50%;
@@ -2137,13 +1926,11 @@ button, input{
     width:4px;
     height:96px;
     transform:translateX(-50%);
-  }
 
   .aviat-link.split-left .flow-dot,
   .aviat-link.split-right .flow-dot{
     left:50%;
     transform:translateX(-50%);
-  }
 
   .aviat-link.split-left .flow-dot.d1,
   .aviat-link.split-right .flow-dot.d1{ top:10%; left:50%; }
@@ -2151,30 +1938,24 @@ button, input{
   .aviat-link.split-right .flow-dot.d2{ top:42%; left:50%; }
   .aviat-link.split-left .flow-dot.d3,
   .aviat-link.split-right .flow-dot.d3{ top:74%; left:50%; }
-}
 
 @media (max-width: 700px){
   .aviat-top-stats{
     grid-template-columns:1fr;
-  }
 
   .aviat-mini-metrics{
     grid-template-columns:1fr;
-  }
 
   .aviat-node{
     min-width:unset;
     width:calc(100% - 28px);
-  }
 
   .avi-node-title,
   .aviat-elite-title{
     font-size:24px;
-  }
 
   .aviat-hero-number{
     font-size:34px;
-  }
 
   .aviat-oid-lines > div{
     flex-direction:column;
@@ -2186,7 +1967,6 @@ button, input{
 .aviat-beast-page{
   display:grid;
   gap:10px;
-}
 
 .aviat-beast-master{
   border-radius:16px;
@@ -2198,37 +1978,31 @@ button, input{
   gap:12px;
   align-items:flex-start;
   box-shadow:0 8px 20px rgba(0,0,0,.20);
-}
 
 .aviat-beast-master-left{
   display:grid;
   gap:6px;
-}
 
 .aviat-beast-eyebrow{
   color:#59d3ff;
   font-size:10px;
   font-weight:800;
   letter-spacing:.14em;
-}
 
 .aviat-beast-big{
   font-size:24px;
   line-height:1.02;
   font-weight:900;
   letter-spacing:-.03em;
-}
 
 .aviat-beast-sub{
   color:#89a1c6;
   font-size:12px;
-}
 
 .aviat-beast-master-right{
   display:grid;
   grid-template-columns:repeat(3, minmax(140px, 1fr));
   gap:10px;
-}
 
 .aviat-master-box{
   min-height:60px;
@@ -2239,20 +2013,17 @@ button, input{
   padding:10px 12px;
   display:grid;
   align-content:space-between;
-}
 
 .aviat-master-box span{
   color:#7f98bf;
   font-size:11px;
   letter-spacing:.12em;
   font-weight:800;
-}
 
 .aviat-master-box strong{
   font-size:22px;
   line-height:1;
   font-weight:900;
-}
 
 .aviat-master-box.status.normal strong{ color:#8fe3ff; }
 .aviat-master-box.status.medium strong{ color:#ffd56a; }
@@ -2266,14 +2037,12 @@ button, input{
   box-shadow:0 8px 20px rgba(0,0,0,.20);
   display:grid;
   gap:10px;
-}
 
 .aviat-beast-head{
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:12px;
-}
 
 .aviat-beast-kicker{
   color:#59d3ff;
@@ -2281,13 +2050,11 @@ button, input{
   font-weight:800;
   letter-spacing:.16em;
   margin-bottom:6px;
-}
 
 .aviat-beast-title{
   font-size:20px;
   font-weight:900;
   line-height:1.04;
-}
 
 .aviat-beast-legend{
   display:flex;
@@ -2296,7 +2063,6 @@ button, input{
   color:#9ab0d2;
   font-size:12px;
   font-weight:700;
-}
 
 .aviat-dot{
   width:8px;
@@ -2317,7 +2083,6 @@ button, input{
     radial-gradient(circle at center, rgba(15,55,120,.08), transparent 44%),
     linear-gradient(180deg, rgba(3,8,17,.95), rgba(4,10,18,.92));
   border:1px solid rgba(80,120,190,.10);
-}
 
 .aviat-grid{
   position:absolute;
@@ -2328,7 +2093,6 @@ button, input{
   background-size:26px 26px;
   pointer-events:none;
   opacity:.9;
-}
 
 .aviat-node.beast{
   position:absolute;
@@ -2339,7 +2103,6 @@ button, input{
   background:linear-gradient(180deg, rgba(8,16,30,.96), rgba(5,10,18,.94));
   box-shadow:0 10px 24px rgba(0,0,0,.24);
   padding:12px 14px;
-}
 
 .aviat-node.beast.normal{ border-color:rgba(87,128,196,.16); }
 .aviat-node.beast.medium{ border-color:rgba(255,177,54,.22); }
@@ -2350,24 +2113,20 @@ button, input{
   top:20px;
   transform:translateX(-50%);
   min-width:180px;
-}
 
 .aviat-node.beast.radio{
   left:50%;
   top:104px;
   transform:translateX(-50%);
   min-width:210px;
-}
 
 .aviat-node.beast.swa{
   left:11%;
   bottom:26px;
-}
 
 .aviat-node.beast.swb{
   right:11%;
   bottom:26px;
-}
 
 .n-k{
   color:#59d3ff;
@@ -2375,32 +2134,27 @@ button, input{
   font-weight:800;
   letter-spacing:.15em;
   margin-bottom:6px;
-}
 
 .n-t{
   font-size:24px;
   font-weight:900;
   line-height:1.02;
-}
 
 .n-v{
   margin-top:8px;
   font-size:18px;
   font-weight:900;
-}
 
 .n-s{
   margin-top:4px;
   color:#dce8ff;
   font-size:12px;
   font-weight:800;
-}
 
 .aviat-line{
   position:absolute;
   z-index:2;
   pointer-events:none;
-}
 
 .aviat-line.vertical{
   left:50%;
@@ -2408,7 +2162,6 @@ button, input{
   width:3px;
   height:58px;
   transform:translateX(-50%);
-}
 
 .aviat-line.left{
   left:34%;
@@ -2417,7 +2170,6 @@ button, input{
   height:82px;
   transform:rotate(33deg);
   transform-origin:left center;
-}
 
 .aviat-line.right{
   right:34%;
@@ -2426,7 +2178,6 @@ button, input{
   height:82px;
   transform:rotate(-33deg);
   transform-origin:right center;
-}
 
 .aviat-line::before{
   content:"";
@@ -2434,15 +2185,12 @@ button, input{
   inset:0;
   border-radius:999px;
   background:linear-gradient(180deg, rgba(88,160,255,.22), rgba(88,160,255,.08));
-}
 
 .aviat-line.medium::before{
   background:linear-gradient(180deg, rgba(255,177,54,.28), rgba(255,177,54,.09));
-}
 
 .aviat-line.high::before{
   background:linear-gradient(180deg, rgba(255,95,120,.30), rgba(255,95,120,.10));
-}
 
 .aviat-line .p{
   position:absolute;
@@ -2452,17 +2200,14 @@ button, input{
   background:#6fddff;
   box-shadow:0 0 10px rgba(111,221,255,.34);
   animation:aviBeastFlow 1.8s linear infinite;
-}
 
 .aviat-line.medium .p{
   background:#ffd56a;
   box-shadow:0 0 10px rgba(255,213,106,.34);
-}
 
 .aviat-line.high .p{
   background:#ff8ea1;
   box-shadow:0 0 10px rgba(255,142,161,.34);
-}
 
 .aviat-line.vertical .p{
   left:50%;
@@ -2484,7 +2229,6 @@ button, input{
   display:grid;
   grid-template-columns:repeat(3, minmax(0,1fr));
   gap:14px;
-}
 
 .aviat-compact-card{
   border-radius:20px;
@@ -2494,7 +2238,6 @@ button, input{
   box-shadow:0 12px 32px rgba(0,0,0,.26);
   display:grid;
   gap:12px;
-}
 
 .aviat-compact-card.normal{}
 .aviat-compact-card.medium{ border-color:rgba(255,177,54,.22); }
@@ -2505,13 +2248,11 @@ button, input{
   justify-content:space-between;
   gap:10px;
   align-items:flex-start;
-}
 
 .aviat-compact-badges{
   display:grid;
   gap:6px;
   justify-items:end;
-}
 
 .aviat-compact-kicker{
   color:#59d3ff;
@@ -2519,26 +2260,22 @@ button, input{
   font-weight:800;
   letter-spacing:.16em;
   margin-bottom:6px;
-}
 
 .aviat-compact-title{
   font-size:20px;
   font-weight:900;
   line-height:1.02;
-}
 
 .aviat-compact-sub{
   margin-top:6px;
   color:#8da5ca;
   font-size:12px;
-}
 
 .aviat-compact-main-number{
   font-size:34px;
   line-height:1;
   font-weight:900;
   letter-spacing:-.03em;
-}
 
 .aviat-compact-main-caption{
   margin-top:-6px;
@@ -2546,13 +2283,11 @@ button, input{
   font-size:10px;
   font-weight:800;
   letter-spacing:.16em;
-}
 
 .aviat-compact-metrics{
   display:grid;
   grid-template-columns:repeat(2, minmax(0,1fr));
   gap:8px 12px;
-}
 
 .aviat-compact-metrics > div{
   min-height:46px;
@@ -2562,20 +2297,17 @@ button, input{
   padding:8px 10px;
   display:grid;
   gap:4px;
-}
 
 .aviat-compact-metrics span{
   color:#8098be;
   font-size:10px;
   font-weight:800;
   letter-spacing:.14em;
-}
 
 .aviat-compact-metrics strong{
   font-size:15px;
   line-height:1.1;
   font-weight:900;
-}
 
 .aviat-compact-bar-shell{
   width:100%;
@@ -2584,7 +2316,6 @@ button, input{
   overflow:hidden;
   background:rgba(255,255,255,.05);
   border:1px solid rgba(90,130,200,.08);
-}
 
 .aviat-compact-bar{
   height:100%;
@@ -2597,13 +2328,11 @@ button, input{
 }
 .aviat-compact-bar.high{
   background:linear-gradient(90deg, #ff4e6e, #ff8a9d);
-}
 
 .aviat-bottom-mini{
   display:flex;
   flex-wrap:wrap;
   gap:8px;
-}
 
 .aviat-pill{
   min-height:28px;
@@ -2616,54 +2345,45 @@ button, input{
   font-weight:800;
   letter-spacing:.08em;
   text-transform:uppercase;
-}
 
 .aviat-pill.soft{
   color:#dce8ff;
   background:rgba(255,255,255,.025);
   border:1px solid rgba(90,130,200,.10);
-}
 
 .aviat-pill.ok{
   color:#dffff0;
   background:rgba(44,255,143,.10);
   border:1px solid rgba(44,255,143,.18);
-}
 
 .aviat-pill.warn,
 .aviat-pill.medium{
   color:#fff0d5;
   background:rgba(255,170,45,.10);
   border:1px solid rgba(255,170,45,.18);
-}
 
 .aviat-pill.crit,
 .aviat-pill.high{
   color:#ffd8de;
   background:rgba(255,86,110,.10);
   border:1px solid rgba(255,86,110,.18);
-}
 
 .aviat-pill.normal{
   color:#d8ebff;
   background:rgba(89,166,255,.10);
   border:1px solid rgba(89,166,255,.18);
-}
 
 @keyframes aviBeastFlow{
   0%,100%{ transform:translateY(0) scale(1); opacity:.88; }
   50%{ transform:translateY(-1px) scale(1.12); opacity:1; }
-}
 
 @media (max-width: 1200px){
   .aviat-compact-grid{
     grid-template-columns:1fr;
-  }
 
   .aviat-top-stats{
     grid-template-columns:repeat(2, minmax(0,1fr));
   }
-}
 
 @media (max-width: 980px){
   .aviat-beast-master{
@@ -2676,39 +2396,32 @@ button, input{
   gap:12px;
   align-items:flex-start;
   box-shadow:0 8px 20px rgba(0,0,0,.20);
-}
 
   .aviat-beast-master-right{
     width:100%;
     grid-template-columns:repeat(3, minmax(0,1fr));
   }
-}
 
 @media (max-width: 900px){
   .aviat-beast-canvas{
     min-height:560px;
-  }
 
   .aviat-node.beast.internet{
     top:18px;
-  }
 
   .aviat-node.beast.radio{
     top:96px;
-  }
 
   .aviat-node.beast.swa{
     left:50%;
     transform:translateX(-50%);
     bottom:152px;
-  }
 
   .aviat-node.beast.swb{
     left:50%;
     right:auto;
     transform:translateX(-50%);
     bottom:18px;
-  }
 
   .aviat-line.left{
     left:50%;
@@ -2716,7 +2429,6 @@ button, input{
     width:3px;
     height:98px;
     transform:translateX(-50%);
-  }
 
   .aviat-line.right{
     left:50%;
@@ -2725,18 +2437,15 @@ button, input{
     width:3px;
     height:88px;
     transform:translateX(-50%);
-  }
 
   .aviat-line.left .p,
   .aviat-line.right .p{
     left:50%;
     transform:translateX(-50%);
-  }
 
   .aviat-line.left .p1, .aviat-line.right .p1{ top:10%; left:50%; }
   .aviat-line.left .p2, .aviat-line.right .p2{ top:44%; left:50%; }
   .aviat-line.left .p3, .aviat-line.right .p3{ top:78%; left:50%; }
-}
 
 @media (max-width: 700px){
   .aviat-beast-big{
@@ -2744,24 +2453,19 @@ button, input{
   line-height:1.02;
   font-weight:900;
   letter-spacing:-.03em;
-}
 
   .aviat-beast-master-right{
     grid-template-columns:1fr;
-  }
 
   .aviat-top-stats{
     grid-template-columns:1fr;
-  }
 
   .aviat-node.beast{
     min-width:unset;
     width:calc(100% - 24px);
-  }
 
   .aviat-compact-metrics{
     grid-template-columns:1fr;
-  }
 
   .aviat-compact-main-number{
     font-size:30px;
@@ -2775,31 +2479,26 @@ button, input{
   color:#8ea7ca;
   font-size:9px;
   font-weight:700;
-}
 
 .n-ip{
   margin-top:2px;
   color:#cfe1ff;
   font-size:9px;
   font-weight:700;
-}
 
 .n-ping-wrap{
   margin-top:5px;
   display:grid;
   gap:3px;
-}
 
 .aviat-spark-wrap{
   position:relative;
   width:100%;
-}
 
 .aviat-spark{
   width:100%;
   height:22px;
   display:block;
-}
 
 .aviat-spark-tooltip{
   position:absolute;
@@ -2818,7 +2517,6 @@ button, input{
   white-space:nowrap;
   z-index:20;
   box-shadow:0 8px 20px rgba(0,0,0,.22);
-}
 
 .aviat-spark-line{
   fill:none;
@@ -2826,12 +2524,10 @@ button, input{
   stroke-width:1.8;
   stroke-linejoin:round;
   stroke-linecap:round;
-}
 
 .aviat-spark-dot{
   opacity:.95;
   transition:r .15s ease, opacity .15s ease;
-}
 
 .aviat-spark-dot.normal{ fill:#7be0ff; }
 .aviat-spark-dot.medium{ fill:#ffd56a; }
@@ -2852,26 +2548,22 @@ button, input{
   white-space:nowrap;
   border:1px solid rgba(90,130,200,.12);
   background:rgba(255,255,255,.03);
-}
 
 .aviat-ping-badge.normal{
   color:#dffff0;
   background:rgba(44,255,143,.10);
   border-color:rgba(44,255,143,.16);
-}
 
 .aviat-ping-badge.medium{
   color:#fff0d5;
   background:rgba(255,170,45,.10);
   border-color:rgba(255,170,45,.16);
-}
 
 .aviat-ping-badge.high,
 .aviat-ping-badge.loss{
   color:#ffd8de;
   background:rgba(255,86,110,.10);
   border-color:rgba(255,86,110,.16);
-}
 
 .aviat-ping-dot{
   width:5px;
@@ -2879,87 +2571,71 @@ button, input{
   border-radius:999px;
   background:currentColor;
   opacity:.95;
-}
 
 .aviat-ping-sep{
   opacity:.5;
-}
 
 .aviat-node.beast{
   min-width:132px;
   border-radius:14px;
   padding:8px 9px;
   box-shadow:0 8px 18px rgba(0,0,0,.22);
-}
 
 .aviat-node.beast.internet{
   min-width:142px;
   top:16px;
-}
 
 .aviat-node.beast.radio{
   min-width:156px;
   top:82px;
-}
 
 .aviat-node.beast.swa{
   left:13%;
   bottom:18px;
-}
 
 .aviat-node.beast.swb{
   right:13%;
   bottom:18px;
-}
 
 .n-k{
   font-size:9px;
   margin-bottom:4px;
-}
 
 .n-t{
   font-size:13px;
   font-weight:900;
   line-height:1.02;
-}
 
 .n-v{
   margin-top:5px;
   font-size:11px;
   font-weight:900;
-}
 
 .n-s{
   margin-top:2px;
   font-size:9px;
   font-weight:800;
-}
 
 .aviat-beast-canvas{
   min-height:250px;
-}
 
 .aviat-line.vertical{
   top:58px;
   height:42px;
-}
 
 .aviat-line.left{
   top:150px;
   width:13%;
   height:58px;
-}
 
 .aviat-line.right{
   top:150px;
   width:13%;
   height:58px;
-}
 
 .aviat-line .p{
   width:6px;
   height:6px;
-}
 
 @media (max-width: 900px){
   .aviat-node.beast{
@@ -2972,51 +2648,42 @@ button, input{
 
 .aviat-node.beast.internet{
   top:8px !important;
-}
 
 .aviat-node.beast.radio{
   top:110px !important;
-}
 
 .aviat-node.beast.swa{
   bottom:8px !important;
   left:14% !important;
-}
 
 .aviat-node.beast.swb{
   bottom:8px !important;
   right:14% !important;
-}
 
 /* glow alignment */
 
 .aviat-line.left{
   top:140px !important;
   height:70px !important;
-}
 
 .aviat-line.right{
   top:140px !important;
   height:70px !important;
-}
 
 .aviat-line.vertical{
   top:60px !important;
   height:60px !important;
-}
 
 /* THGV label spacing */
 
 .aviat-node.beast.internet .n-k{
   margin-bottom:6px !important;
-}
 
 /* shrink nodes little more */
 
 .aviat-node.beast{
   padding:7px 8px !important;
   min-width:120px !important;
-}
 
 /* AVIAT-TOPOLOGY-FIX-END */
 
@@ -3026,7 +2693,6 @@ button, input{
 .aviat-beast-topology{
   margin-top:-14px !important;
   padding-top:10px !important;
-}
 
 /* العنوان يصير داخل نفس المساحة */
 .aviat-beast-head{
@@ -3036,30 +2702,25 @@ button, input{
   z-index:5;
   margin:0 !important;
   padding:0 !important;
-}
 
 /* صغّر العنوان شوي */
 .aviat-beast-title{
   font-size:16px !important;
   line-height:1.1 !important;
-}
 
 /* صغّر كلمة TOPOLOGY */
 .aviat-beast-kicker{
   font-size:10px !important;
   margin-bottom:2px !important;
-}
 
 /* حرّك الكانفس لفوق */
 .aviat-beast-canvas{
   margin-top:0 !important;
   padding-top:26px !important;
-}
 
 /* الشبكة تكبر لفوق */
 .aviat-grid{
   top:0 !important;
-}
 
 /* AVIAT-TOPOLOGY-MERGE-END */
 
@@ -3067,7 +2728,6 @@ button, input{
 .aviat-clean-page{
   display:grid;
   gap:16px;
-}
 
 /* ===== MASTER HERO ===== */
 .aviat-clean-master{
@@ -3087,7 +2747,6 @@ button, input{
   box-shadow:
     0 18px 48px rgba(0,0,0,.30),
     inset 0 1px 0 rgba(255,255,255,.04);
-}
 
 .aviat-clean-master::before{
   content:"";
@@ -3097,14 +2756,12 @@ button, input{
   background:
     linear-gradient(90deg, transparent, rgba(255,255,255,.04), transparent);
   opacity:.45;
-}
 
 .aviat-clean-master-left{
   position:relative;
   z-index:2;
   display:grid;
   gap:6px;
-}
 
 .aviat-clean-eyebrow{
   display:inline-flex;
@@ -3120,7 +2777,6 @@ button, input{
   font-weight:900;
   letter-spacing:.18em;
   text-transform:uppercase;
-}
 
 .aviat-clean-big{
   font-size:30px;
@@ -3129,13 +2785,11 @@ button, input{
   letter-spacing:-.03em;
   color:#f5f9ff;
   text-shadow:0 0 18px rgba(0,210,255,.12);
-}
 
 .aviat-clean-sub{
   color:#90a7cc;
   font-size:13px;
   line-height:1.45;
-}
 
 .aviat-clean-master-right{
   position:relative;
@@ -3143,7 +2797,6 @@ button, input{
   display:grid;
   grid-template-columns:repeat(3, minmax(150px, 1fr));
   gap:12px;
-}
 
 .aviat-master-box{
   position:relative;
@@ -3161,7 +2814,6 @@ button, input{
     inset 0 1px 0 rgba(255,255,255,.04),
     0 10px 24px rgba(0,0,0,.18);
   backdrop-filter:blur(8px);
-}
 
 .aviat-master-box::after{
   content:"";
@@ -3172,7 +2824,6 @@ button, input{
   border-radius:50%;
   background:radial-gradient(circle, rgba(88,160,255,.22), transparent 70%);
   pointer-events:none;
-}
 
 .aviat-master-box span{
   color:#7e96ba;
@@ -3180,14 +2831,12 @@ button, input{
   font-weight:900;
   letter-spacing:.16em;
   text-transform:uppercase;
-}
 
 .aviat-master-box strong{
   font-size:26px;
   line-height:1;
   font-weight:1000;
   color:#f3f8ff;
-}
 
 .aviat-master-box.status.normal{
   border-color:rgba(78,240,188,.18);
@@ -3195,7 +2844,6 @@ button, input{
 .aviat-master-box.status.normal strong{
   color:#9fffe0;
   text-shadow:0 0 18px rgba(78,240,188,.18);
-}
 
 .aviat-master-box.status.medium{
   border-color:rgba(255,201,92,.18);
@@ -3203,7 +2851,6 @@ button, input{
 .aviat-master-box.status.medium strong{
   color:#ffd978;
   text-shadow:0 0 18px rgba(255,201,92,.18);
-}
 
 .aviat-master-box.status.high{
   border-color:rgba(255,110,140,.20);
@@ -3211,7 +2858,6 @@ button, input{
 .aviat-master-box.status.high strong{
   color:#ff9ab0;
   text-shadow:0 0 18px rgba(255,110,140,.18);
-}
 
 /* ===== TOPOLOGY ===== */
 .aviat-topology-clean{
@@ -3225,7 +2871,6 @@ button, input{
   box-shadow:
     0 20px 48px rgba(0,0,0,.30),
     inset 0 1px 0 rgba(255,255,255,.04);
-}
 
 .aviat-topology-canvas{
   position:relative;
@@ -3234,7 +2879,6 @@ button, input{
   background:
     radial-gradient(circle at center, rgba(18,62,128,.10), transparent 44%),
     linear-gradient(180deg, rgba(5,10,20,.94), rgba(3,7,15,.98));
-}
 
 .aviat-topology-canvas::before{
   content:"";
@@ -3246,7 +2890,6 @@ button, input{
     linear-gradient(90deg, rgba(110,160,230,.035) 1px, transparent 1px);
   background-size:28px 28px;
   mask-image:linear-gradient(180deg, rgba(0,0,0,.95), rgba(0,0,0,.55));
-}
 
 .aviat-topology-canvas::after{
   content:"";
@@ -3259,7 +2902,6 @@ button, input{
   border-radius:50%;
   background:radial-gradient(circle, rgba(36,118,255,.10), transparent 68%);
   pointer-events:none;
-}
 
 .aviat-topology-header{
   position:absolute;
@@ -3268,7 +2910,6 @@ button, input{
   z-index:7;
   display:grid;
   gap:4px;
-}
 
 .aviat-topology-kicker{
   color:#73ddff;
@@ -3276,14 +2917,12 @@ button, input{
   font-weight:900;
   letter-spacing:.18em;
   text-transform:uppercase;
-}
 
 .aviat-topology-title{
   font-size:20px;
   line-height:1.06;
   font-weight:1000;
   color:#f4f9ff;
-}
 
 .aviat-legend{
   position:absolute;
@@ -3302,7 +2941,6 @@ button, input{
   color:#99afd2;
   font-weight:800;
   z-index:7;
-}
 
 .aviat-legend .dot{
   width:8px;
@@ -3320,7 +2958,6 @@ button, input{
   position:absolute;
   inset:0;
   pointer-events:none;
-}
 
 /* ===== SIGNAL LINES ===== */
 .aviat-flow{
@@ -3328,7 +2965,6 @@ button, input{
   z-index:2;
   overflow:hidden;
   border-radius:999px;
-}
 
 .aviat-flow::before{
   content:"";
@@ -3339,7 +2975,6 @@ button, input{
     linear-gradient(90deg, transparent, rgba(137,214,255,.95), transparent);
   animation:aviatSignal 2.4s linear infinite;
   opacity:.95;
-}
 
 .aviat-flow-left,
 .aviat-flow-right{
@@ -3348,19 +2983,16 @@ button, input{
   top:210px;
   background:rgba(67,120,204,.16);
   box-shadow:0 0 20px rgba(70,140,255,.14);
-}
 
 .aviat-flow-left{
   left:calc(50% - 156px);
   transform:rotate(27deg);
   transform-origin:left center;
-}
 
 .aviat-flow-right{
   right:calc(50% - 156px);
   transform:rotate(-27deg);
   transform-origin:right center;
-}
 
 .aviat-flow-vertical{
   left:50%;
@@ -3370,16 +3002,13 @@ button, input{
   transform:translateX(-50%);
   background:rgba(67,120,204,.16);
   box-shadow:0 0 20px rgba(70,140,255,.14);
-}
 
 .aviat-flow-vertical::before{
   background:linear-gradient(180deg, transparent, rgba(137,214,255,.95), transparent);
-}
 
 @keyframes aviatSignal{
   0%   { transform:translateX(-100%); }
   100% { transform:translateX(100%); }
-}
 
 /* ===== NODE BOXES ===== */
 .aviat-node-box{
@@ -3399,7 +3028,6 @@ button, input{
     transform .25s ease,
     box-shadow .25s ease,
     border-color .25s ease;
-}
 
 .aviat-node-box:hover{
   transform:translateY(-2px);
@@ -3407,31 +3035,26 @@ button, input{
     0 22px 44px rgba(0,0,0,.34),
     0 0 0 1px rgba(120,180,255,.08),
     inset 0 1px 0 rgba(255,255,255,.06);
-}
 
 .aviat-node-box.internet{
   left:50%;
   top:20px;
   transform:translateX(-50%);
   min-width:184px;
-}
 
 .aviat-node-box.radio{
   left:50%;
   top:124px;
   transform:translateX(-50%);
   min-width:196px;
-}
 
 .aviat-node-box.edge-a{
   left:10%;
   bottom:28px;
-}
 
 .aviat-node-box.edge-b{
   right:10%;
   bottom:28px;
-}
 
 .aviat-node-box.medium{
   border-color:rgba(255,196,84,.24);
@@ -3439,7 +3062,6 @@ button, input{
     0 16px 34px rgba(0,0,0,.28),
     0 0 24px rgba(255,196,84,.06),
     inset 0 1px 0 rgba(255,255,255,.05);
-}
 
 .aviat-node-box.high{
   border-color:rgba(255,108,142,.24);
@@ -3447,7 +3069,6 @@ button, input{
     0 16px 34px rgba(0,0,0,.28),
     0 0 24px rgba(255,108,142,.08),
     inset 0 1px 0 rgba(255,255,255,.05);
-}
 
 .aviat-node-label{
   display:inline-flex;
@@ -3464,21 +3085,18 @@ button, input{
   letter-spacing:.16em;
   text-transform:uppercase;
   margin-bottom:8px;
-}
 
 .aviat-node-title{
   font-size:15px;
   font-weight:1000;
   line-height:1.05;
   color:#f2f8ff;
-}
 
 .aviat-node-subtitle{
   margin-top:4px;
   color:#8ba3c8;
   font-size:10px;
   font-weight:700;
-}
 
 .aviat-node-ip{
   margin-top:5px;
@@ -3486,40 +3104,34 @@ button, input{
   font-size:10px;
   font-weight:800;
   font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-}
 
 .aviat-node-total{
   margin-top:8px;
   font-size:13px;
   font-weight:1000;
   color:#ffffff;
-}
 
 .aviat-node-util{
   margin-top:3px;
   font-size:10px;
   font-weight:900;
   color:#7fdfff;
-}
 
 .aviat-node-ping{
   margin-top:8px;
   display:grid;
   gap:5px;
-}
 
 /* ===== SPARK ===== */
 .aviat-spark-wrap{
   position:relative;
   width:100%;
-}
 
 .aviat-spark{
   width:100%;
   height:26px;
   display:block;
   overflow:visible;
-}
 
 .aviat-spark-line{
   fill:none;
@@ -3528,14 +3140,12 @@ button, input{
   stroke-linejoin:round;
   stroke-linecap:round;
   filter:drop-shadow(0 0 8px rgba(88,224,255,.24));
-}
 
 .aviat-spark-dot{
   transition:r .18s ease, transform .18s ease;
 }
 .aviat-spark-dot:hover{
   r:3;
-}
 
 .aviat-spark-dot.normal{ fill:#6bffd0; }
 .aviat-spark-dot.medium{ fill:#ffd56a; }
@@ -3559,7 +3169,6 @@ button, input{
   white-space:nowrap;
   z-index:20;
   box-shadow:0 10px 28px rgba(0,0,0,.30);
-}
 
 /* ===== PING ===== */
 .aviat-ping-badge{
@@ -3577,7 +3186,6 @@ button, input{
   border:1px solid rgba(90,130,200,.12);
   background:rgba(255,255,255,.03);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.03);
-}
 
 .aviat-ping-badge.normal{
   color:#dffff0;
@@ -3594,7 +3202,6 @@ button, input{
   color:#ffd8de;
   background:rgba(255,86,110,.10);
   border-color:rgba(255,86,110,.18);
-}
 
 .aviat-ping-dot{
   width:6px;
@@ -3602,18 +3209,15 @@ button, input{
   border-radius:999px;
   background:currentColor;
   box-shadow:0 0 10px currentColor;
-}
 
 .aviat-ping-sep{
   opacity:.45;
-}
 
 /* ===== CARDS ===== */
 .aviat-card-grid{
   display:grid;
   grid-template-columns:repeat(3, minmax(0,1fr));
   gap:14px;
-}
 
 .aviat-card-clean{
   position:relative;
@@ -3633,7 +3237,6 @@ button, input{
     transform .25s ease,
     box-shadow .25s ease,
     border-color .25s ease;
-}
 
 .aviat-card-clean:hover{
   transform:translateY(-3px);
@@ -3641,7 +3244,6 @@ button, input{
     0 24px 48px rgba(0,0,0,.34),
     0 0 0 1px rgba(120,180,255,.08),
     inset 0 1px 0 rgba(255,255,255,.05);
-}
 
 .aviat-card-clean::before{
   content:"";
@@ -3650,34 +3252,29 @@ button, input{
   width:4px;
   background:linear-gradient(180deg, #29d7ff, #287bff);
   opacity:.9;
-}
 
 .aviat-card-clean.medium{
   border-color:rgba(255,188,74,.22);
 }
 .aviat-card-clean.medium::before{
   background:linear-gradient(180deg, #ffb020, #ffd56a);
-}
 
 .aviat-card-clean.high{
   border-color:rgba(255,108,142,.24);
 }
 .aviat-card-clean.high::before{
   background:linear-gradient(180deg, #ff5c7c, #ff9ab0);
-}
 
 .aviat-card-head{
   display:flex;
   justify-content:space-between;
   gap:10px;
   align-items:flex-start;
-}
 
 .aviat-card-badges{
   display:grid;
   gap:6px;
   justify-items:end;
-}
 
 .aviat-card-kicker{
   color:#73ddff;
@@ -3686,20 +3283,17 @@ button, input{
   letter-spacing:.18em;
   text-transform:uppercase;
   margin-bottom:6px;
-}
 
 .aviat-card-title{
   font-size:20px;
   font-weight:1000;
   line-height:1.02;
   color:#f4f9ff;
-}
 
 .aviat-card-sub{
   margin-top:6px;
   color:#8ea5c8;
   font-size:12px;
-}
 
 .aviat-card-total{
   font-size:34px;
@@ -3707,7 +3301,6 @@ button, input{
   font-weight:1000;
   letter-spacing:-.03em;
   color:#ffffff;
-}
 
 .aviat-card-total-label{
   margin-top:-4px;
@@ -3716,13 +3309,11 @@ button, input{
   font-weight:900;
   letter-spacing:.16em;
   text-transform:uppercase;
-}
 
 .aviat-card-metrics{
   display:grid;
   grid-template-columns:repeat(2, minmax(0,1fr));
   gap:10px;
-}
 
 .aviat-card-metrics > div{
   min-height:52px;
@@ -3733,7 +3324,6 @@ button, input{
   display:grid;
   gap:5px;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.03);
-}
 
 .aviat-card-metrics span{
   color:#8098be;
@@ -3741,14 +3331,12 @@ button, input{
   font-weight:900;
   letter-spacing:.14em;
   text-transform:uppercase;
-}
 
 .aviat-card-metrics strong{
   font-size:16px;
   line-height:1.1;
   font-weight:1000;
   color:#f1f7ff;
-}
 
 .aviat-card-bar-shell{
   width:100%;
@@ -3758,7 +3346,6 @@ button, input{
   background:rgba(255,255,255,.05);
   border:1px solid rgba(90,130,200,.08);
   box-shadow:inset 0 2px 5px rgba(0,0,0,.18);
-}
 
 .aviat-card-bar{
   height:100%;
@@ -3774,14 +3361,12 @@ button, input{
 .aviat-card-bar.high{
   background:linear-gradient(90deg, #ff5074, #ff94ac);
   box-shadow:0 0 18px rgba(255,96,130,.18);
-}
 
 /* ===== FOOTER PILLS ===== */
 .aviat-bottom-mini{
   display:flex;
   flex-wrap:wrap;
   gap:10px;
-}
 
 .aviat-pill{
   min-height:30px;
@@ -3795,7 +3380,6 @@ button, input{
   letter-spacing:.10em;
   text-transform:uppercase;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.03);
-}
 
 .aviat-pill.soft{
   color:#dce8ff;
@@ -3823,52 +3407,43 @@ button, input{
   color:#d8ebff;
   background:rgba(89,166,255,.11);
   border:1px solid rgba(89,166,255,.18);
-}
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1280px){
   .aviat-card-grid{
     grid-template-columns:1fr;
   }
-}
 
 @media (max-width: 1080px){
   .aviat-clean-master{
     flex-direction:column;
-  }
 
   .aviat-clean-master-right{
     width:100%;
     grid-template-columns:repeat(3, minmax(0,1fr));
   }
-}
 
 @media (max-width: 920px){
   .aviat-topology-canvas{
     min-height:620px;
     padding-top:72px;
-  }
 
   .aviat-node-box.internet{
     top:20px;
-  }
 
   .aviat-node-box.radio{
     top:140px;
-  }
 
   .aviat-node-box.edge-a{
     left:50%;
     transform:translateX(-50%);
     bottom:170px;
-  }
 
   .aviat-node-box.edge-b{
     left:50%;
     right:auto;
     transform:translateX(-50%);
     bottom:28px;
-  }
 
   .aviat-flow-left{
     left:50%;
@@ -3876,7 +3451,6 @@ button, input{
     width:4px;
     height:88px;
     transform:translateX(-50%);
-  }
 
   .aviat-flow-right{
     left:50%;
@@ -3885,39 +3459,31 @@ button, input{
     width:4px;
     height:88px;
     transform:translateX(-50%);
-  }
 
   .aviat-flow-left::before,
   .aviat-flow-right::before{
     background:linear-gradient(180deg, transparent, rgba(137,214,255,.95), transparent);
   }
-}
 
 @media (max-width: 760px){
   .aviat-clean-big{
     font-size:24px;
-  }
 
   .aviat-clean-master-right{
     grid-template-columns:1fr;
-  }
 
   .aviat-master-box{
     min-width:unset;
-  }
 
   .aviat-node-box{
     min-width:unset;
     width:calc(100% - 28px);
-  }
 
   .aviat-card-metrics{
     grid-template-columns:1fr;
-  }
 
   .aviat-card-total{
     font-size:28px;
-  }
 
   .aviat-legend{
     position:static;
@@ -3933,344 +3499,4 @@ button, input{
 .aviat-x-card-title{font-size:18px;font-weight:700}
 .aviat-x-total{font-size:26px;font-weight:900}
 
-
-/* ===== LOGIN PRO MAX PATCH START ===== */
-
-/* restore drifting network groups */
-.drift-a{
-  animation: networkDriftA 7s ease-in-out infinite alternate;
-  transform-origin: 18% 28%;
-}
-.drift-b{
-  animation: networkDriftB 8s ease-in-out infinite alternate;
-  transform-origin: 50% 44%;
-}
-.drift-c{
-  animation: networkDriftC 7.5s ease-in-out infinite alternate;
-  transform-origin: 82% 30%;
-}
-
-@keyframes networkDriftA{
-  0%   { transform: translate3d(0px,0px,0px); }
-  50%  { transform: translate3d(10px,-8px,0px); }
-  100% { transform: translate3d(-8px,10px,0px); }
-}
-@keyframes networkDriftB{
-  0%   { transform: translate3d(0px,0px,0px); }
-  50%  { transform: translate3d(-12px,6px,0px); }
-  100% { transform: translate3d(8px,-10px,0px); }
-}
-@keyframes networkDriftC{
-  0%   { transform: translate3d(0px,0px,0px); }
-  50%  { transform: translate3d(14px,8px,0px); }
-  100% { transform: translate3d(-10px,-6px,0px); }
-}
-
-/* make network more alive */
-.network-segment{
-  stroke: var(--line);
-  stroke-width: 0.16;
-  stroke-linecap: round;
-  animation: linePulse 4.6s ease-in-out infinite;
-}
-.net-dot{
-  animation: dotTwinkle 3.8s ease-in-out infinite;
-}
-.net-dot.strong{
-  animation: dotTwinkle 2.8s ease-in-out infinite;
-}
-
-/* face expressions */
-.face-widget.look-user .face-eyes{
-  transform: translateX(-6px);
-}
-.face-widget.look-pass .face-eyes{
-  transform: translateX(6px) translateY(2px);
-}
-.face-widget.typing-user .face-head{
-  transform: translateY(-1px) scale(1.015);
-}
-.face-widget.typing-pass .eye{
-  transform: scale(.92);
-}
-
-.face-widget.sad{
-  animation: faceErrorShake .38s ease-in-out 2;
-}
-.face-widget.sad .face-head{
-  filter: saturate(.9);
-}
-.face-widget.sad .eye{
-  transform: translateY(1px) scaleY(.85);
-}
-.face-widget.sad .face-status{
-  color:#ffb8c4;
-}
-
-.face-widget.happy .face-head,
-.face-widget.success .face-head{
-  transform: translateY(-1px) scale(1.04);
-}
-.face-widget.happy .face-mouth,
-.face-widget.success .face-mouth{
-  width: 24px;
-  height: 10px;
-  border-bottom-width: 3px;
-  border-radius: 0 0 20px 20px;
-}
-.face-widget.happy .face-blush,
-.face-widget.success .face-blush{
-  opacity: 1;
-}
-.face-widget.happy .face-status,
-.face-widget.success .face-status{
-  color:#bfffe2;
-}
-
-.face-widget.success .face-hand{
-  opacity: 1;
-  transform: translateY(0) rotate(0deg) scale(1.08);
-  animation: faceLikePop .65s ease-out 1, faceLikeWave 1.2s ease-in-out infinite .65s;
-}
-
-.intro-face-ready .eye{
-  animation: eyeBlinkLoop 4.5s ease-in-out infinite;
-  animation-delay: .6s;
-}
-
-@keyframes faceErrorShake{
-  0%,100%{ transform: translateX(0); }
-  20%{ transform: translateX(-4px); }
-  40%{ transform: translateX(4px); }
-  60%{ transform: translateX(-3px); }
-  80%{ transform: translateX(3px); }
-}
-@keyframes faceLikePop{
-  0%   { opacity:0; transform: translateY(8px) rotate(-18deg) scale(.6); }
-  70%  { opacity:1; transform: translateY(0) rotate(6deg) scale(1.12); }
-  100% { opacity:1; transform: translateY(0) rotate(0deg) scale(1.06); }
-}
-@keyframes faceLikeWave{
-  0%,100%{ transform: translateY(0) rotate(0deg) scale(1.06); }
-  25%{ transform: translateY(-1px) rotate(7deg) scale(1.08); }
-  50%{ transform: translateY(0) rotate(-4deg) scale(1.06); }
-  75%{ transform: translateY(-1px) rotate(5deg) scale(1.08); }
-}
-
-@keyframes eyeBlinkLoop{
-  0%, 46%, 50%, 100%{
-    transform: scaleY(1);
-  }
-  48%{
-    transform: scaleY(.16);
-  }
-}
-
-/* ===== LOGIN PRO MAX PATCH END ===== */
-
-/* ===== LOGIN LIVE FIX START ===== */
-.drift-a{
-  animation: networkDriftA 7s ease-in-out infinite alternate;
-  transform-origin: 18% 28%;
-}
-.drift-b{
-  animation: networkDriftB 8s ease-in-out infinite alternate;
-  transform-origin: 50% 44%;
-}
-.drift-c{
-  animation: networkDriftC 7.5s ease-in-out infinite alternate;
-  transform-origin: 82% 30%;
-}
-
-@keyframes networkDriftA{
-  0%   { transform: translate3d(0px,0px,0px); }
-  50%  { transform: translate3d(10px,-8px,0px); }
-  100% { transform: translate3d(-8px,10px,0px); }
-}
-@keyframes networkDriftB{
-  0%   { transform: translate3d(0px,0px,0px); }
-  50%  { transform: translate3d(-12px,6px,0px); }
-  100% { transform: translate3d(8px,-10px,0px); }
-}
-@keyframes networkDriftC{
-  0%   { transform: translate3d(0px,0px,0px); }
-  50%  { transform: translate3d(14px,8px,0px); }
-  100% { transform: translate3d(-10px,-6px,0px); }
-}
-
-.network-segment{
-  stroke-width: 0.16;
-  stroke-linecap: round;
-  animation: linePulse 4.6s ease-in-out infinite;
-}
-.net-dot{ animation: dotTwinkle 3.8s ease-in-out infinite; }
-.net-dot.strong{ animation: dotTwinkle 2.8s ease-in-out infinite; }
-
-.face-widget.look-user .face-eyes{ transform: translateX(-6px); }
-.face-widget.look-pass .face-eyes{ transform: translateX(6px) translateY(2px); }
-
-.face-widget.sad{ animation: faceErrorShake .38s ease-in-out 2; }
-.face-widget.sad .face-mouth{
-  border-bottom: 0;
-  border-top: 2px solid #edf6ff;
-  border-radius: 16px 16px 0 0;
-  top: 47px;
-}
-.face-widget.sad .face-status{ color:#ffb8c4; }
-
-.face-widget.happy .face-mouth,
-.face-widget.success .face-mouth{
-  width: 24px;
-  height: 10px;
-  border-bottom-width: 3px;
-  border-radius: 0 0 20px 20px;
-}
-.face-widget.happy .face-blush,
-.face-widget.success .face-blush{
-  opacity: 1;
-}
-.face-widget.happy .face-status,
-.face-widget.success .face-status{
-  color:#bfffe2;
-}
-
-.face-widget.success .face-hand{
-  opacity: 1;
-  transform: translateY(0) rotate(0deg) scale(1.08);
-  animation: faceLikePop .65s ease-out 1, faceLikeWave 1.2s ease-in-out infinite .65s;
-}
-
-.intro-face-ready .eye{
-  animation: eyeBlinkLoop 4.5s ease-in-out infinite;
-  animation-delay: .6s;
-}
-
-@keyframes faceErrorShake{
-  0%,100%{ transform: translateX(0); }
-  20%{ transform: translateX(-4px); }
-  40%{ transform: translateX(4px); }
-  60%{ transform: translateX(-3px); }
-  80%{ transform: translateX(3px); }
-}
-@keyframes faceLikePop{
-  0%   { opacity:0; transform: translateY(8px) rotate(-18deg) scale(.6); }
-  70%  { opacity:1; transform: translateY(0) rotate(6deg) scale(1.12); }
-  100% { opacity:1; transform: translateY(0) rotate(0deg) scale(1.06); }
-}
-@keyframes faceLikeWave{
-  0%,100%{ transform: translateY(0) rotate(0deg) scale(1.06); }
-  25%{ transform: translateY(-1px) rotate(7deg) scale(1.08); }
-  50%{ transform: translateY(0) rotate(-4deg) scale(1.06); }
-  75%{ transform: translateY(-1px) rotate(5deg) scale(1.08); }
-}
-@keyframes eyeBlinkLoop{
-  0%, 46%, 50%, 100%{ transform: scaleY(1); }
-  48%{ transform: scaleY(.16); }
-}
-/* ===== LOGIN LIVE FIX END ===== */
-
-/* ===== LOGIN HEADER INLINE PATCH START ===== */
-.login-v3-header-inline{
-  position: relative !important;
-  inset: auto !important;
-  top: auto !important;
-  left: auto !important;
-  right: auto !important;
-  width: 100%;
-  max-width: none;
-  margin-bottom: 12px;
-  z-index: 2;
-}
-
-.login-v3-header-inline .v3-brand,
-.login-v3-header-inline .v3-status-pill{
-  width: 100%;
-}
-
-.login-v3-header-inline .v3-status-pill{
-  justify-content: flex-start;
-}
-/* ===== LOGIN HEADER INLINE PATCH END ===== */
-
-/* LOGIN TEMP HEADER HIDE */
-.login-v3-header-left,
-.login-v3-header-right{
-  display:none !important;
-}
-
-
-
-/* ================================
-   NOC ELITE LOGIN EFFECTS
-================================ */
-
-/* hologram glow */
-.login-v3-card::before{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  border-radius:inherit;
-  background:
-    radial-gradient(circle at var(--mx) var(--my),
-      rgba(0,200,255,.25),
-      transparent 40%);
-  opacity:.6;
-  pointer-events:none;
-  filter:blur(14px);
-}
-
-/* packet particles */
-.packet{
-  position:absolute;
-  width:6px;
-  height:6px;
-  border-radius:999px;
-  background:#7ad7ff;
-  box-shadow:0 0 12px rgba(122,215,255,.6);
-  animation:packetMove linear infinite;
-}
-
-.packet.fast{ animation-duration:3s }
-.packet.mid{ animation-duration:5s }
-.packet.slow{ animation-duration:7s }
-
-@keyframes packetMove{
-  0%{
-    transform:translateX(-10vw);
-    opacity:0;
-  }
-  10%{opacity:1}
-  90%{opacity:1}
-  100%{
-    transform:translateX(110vw);
-    opacity:0;
-  }
-}
-
-/* AI face follow mouse */
-
-.face-widget.follow .face-eyes{
-  transform:translate(var(--fx),var(--fy));
-}
-
-/* elite shimmer */
-
-.login-v3-card{
-  animation:cardBreath 6s ease-in-out infinite;
-}
-
-@keyframes cardBreath{
-  0%,100%{
-    box-shadow:
-      0 28px 90px rgba(0,0,0,.34),
-      inset 0 1px 0 rgba(255,255,255,.02);
-  }
-
-  50%{
-    box-shadow:
-      0 34px 110px rgba(0,0,0,.42),
-      0 0 30px rgba(0,170,255,.15),
-      inset 0 1px 0 rgba(255,255,255,.02);
-  }
-}
 

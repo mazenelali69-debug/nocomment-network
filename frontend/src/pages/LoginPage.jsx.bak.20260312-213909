@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react"
+﻿import React, { useEffect, useMemo, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 function useNow() {
@@ -141,7 +141,7 @@ function FaceWidget({ mood, usernameFocused, passwordFocused, isTypingUser, isTy
         <div className="face-blush right"></div>
       </div>
 
-      <div className="face-hand like-hand">??</div>
+      <div className="face-hand like-hand">👍</div>
       <div className="face-status">
         {mood === "sad" ? "Access denied" : mood === "success" ? "Access granted" : "Identity check"}
       </div>
@@ -217,24 +217,7 @@ function IntroOverlay({ introDone }) {
   )
 }
 
-export default function LoginPage(){
-
-useEffect(()=>{
-
-  const move=(e)=>{
-    const x=(e.clientX/window.innerWidth-.5)*10
-    const y=(e.clientY/window.innerHeight-.5)*10
-
-    document.documentElement.style.setProperty("--fx",x+"px")
-    document.documentElement.style.setProperty("--fy",y+"px")
-  }
-
-  window.addEventListener("mousemove",move)
-
-  return ()=>window.removeEventListener("mousemove",move)
-
-},[])
-
+export default function LoginPage() {
   const now = useNow()
   const navigate = useNavigate()
 
@@ -346,7 +329,7 @@ useEffect(()=>{
               }}
               onBlur={() => setPasswordFocused(false)}
             />
-            <button type="button" className="v3-eye-btn">?</button>
+            <button type="button" className="v3-eye-btn">⌁</button>
           </div>
 
           {errorText ? <div className="v3-error">{errorText}</div> : null}
@@ -363,6 +346,4 @@ useEffect(()=>{
     </div>
   )
 }
-
-
 

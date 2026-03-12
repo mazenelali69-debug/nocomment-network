@@ -3933,6 +3933,7 @@ button, input{
 .aviat-x-card-title{font-size:18px;font-weight:700}
 .aviat-x-total{font-size:26px;font-weight:900}
 
+}
 
 /* ===== LOGIN PRO MAX PATCH START ===== */
 

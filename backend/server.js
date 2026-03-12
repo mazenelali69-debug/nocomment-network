@@ -11,6 +11,15 @@ app.use(express.json());
 const PORT = 4041;
 const CONFIG_PATH = path.join(__dirname, "config", "aviat-oids.json");
 
+const PING_TARGETS = {
+  thgv: { label: "THGV", ip: "112.24.30.1" },
+  aviat: { label: "Aviat WTM4200", ip: "155.15.59.4" },
+  edgeA: { label: "TP-Link JetStream", ip: "10.88.88.254" },
+  edgeB: { label: "TP-Link JetStream", ip: "88.88.88.254" },
+};
+
+const MAX_SPARK_POINTS = 20;
+
 function loadConfig() {
   const txt = fs.readFileSync(CONFIG_PATH, "utf8");
   return JSON.parse(txt);
@@ -56,6 +65,39 @@ function round2(n) {
   return Math.round(n * 100) / 100;
 }
 
+function severityFromUtil(util) {
+  if (util >= 85) return "high";
+  if (util >= 60) return "medium";
+  return "normal";
+}
+
+function pingOnce(ip) {
+  return new Promise((resolve) => {
+    execFile(
+      "ping",
+      ["-n", "1", "-w", "1000", ip],
+      { windowsHide: true, timeout: 3000 },
+      (err, stdout, _stderr) => {
+        const out = String(stdout || "");
+        const match = out.match(/time[=<]\s*(\d+)\s*ms/i);
+        if (match) {
+          resolve({
+            ok: true,
+            latencyMs: Number(match[1]),
+          });
+          return;
+        }
+
+        resolve({
+          ok: false,
+          latencyMs: null,
+          error: err ? err.message : "Ping failed",
+        });
+      }
+    );
+  });
+}
+
 const state = {
   initialized: false,
   lastPollAt: null,
@@ -68,6 +110,7 @@ const state = {
     switchBMbps: 1000,
   },
   interfaces: {},
+  ping: {},
   error: null,
 };
 
@@ -97,13 +140,22 @@ function ensureInterfaceState(key, cfg) {
   return state.interfaces[key];
 }
 
-function severityFromUtil(util) {
-  if (util >= 85) return "high";
-  if (util >= 60) return "medium";
-  return "normal";
+function ensurePingState(key, cfg) {
+  if (!state.ping[key]) {
+    state.ping[key] = {
+      key,
+      label: cfg.label,
+      ip: cfg.ip,
+      lastLatencyMs: null,
+      lastOk: false,
+      points: [],
+      status: "INIT",
+    };
+  }
+  return state.ping[key];
 }
 
-async function pollOnce() {
+async function pollSnmp() {
   const cfg = loadConfig();
 
   state.deviceIp = cfg.deviceIp;
@@ -175,11 +227,31 @@ async function pollOnce() {
   }
 
   await Promise.all(jobs);
+}
 
-  state.initialized = true;
-  state.lastPollAt = now;
-  state.tick += 1;
-  state.error = null;
+async function pollPing() {
+  const jobs = Object.entries(PING_TARGETS).map(async ([key, cfg]) => {
+    const item = ensurePingState(key, cfg);
+    const result = await pingOnce(cfg.ip);
+
+    item.lastOk = result.ok;
+    item.lastLatencyMs = result.latencyMs;
+    item.status = result.ok ? "ONLINE" : "LOSS";
+
+    if (result.ok && Number.isFinite(result.latencyMs)) {
+      item.points.push(result.latencyMs);
+      if (item.points.length > MAX_SPARK_POINTS) {
+        item.points = item.points.slice(item.points.length - MAX_SPARK_POINTS);
+      }
+    } else {
+      item.points.push(null);
+      if (item.points.length > MAX_SPARK_POINTS) {
+        item.points = item.points.slice(item.points.length - MAX_SPARK_POINTS);
+      }
+    }
+  });
+
+  await Promise.all(jobs);
 }
 
 let polling = false;
@@ -188,7 +260,12 @@ async function safePoll() {
   if (polling) return;
   polling = true;
   try {
-    await pollOnce();
+    await pollSnmp();
+    await pollPing();
+    state.initialized = true;
+    state.lastPollAt = Date.now();
+    state.tick += 1;
+    state.error = null;
   } catch (err) {
     state.error = err.message || String(err);
   } finally {
@@ -210,10 +287,6 @@ app.get("/api/health", (_req, res) => {
 });
 
 app.get("/api/aviat/status", (_req, res) => {
-  const uplink = state.interfaces.uplink || null;
-  const switchB = state.interfaces.switchB || null;
-  const switchA = state.interfaces.switchA || null;
-
   res.json({
     ok: !state.error,
     error: state.error,
@@ -223,10 +296,11 @@ app.get("/api/aviat/status", (_req, res) => {
     lastPollAt: state.lastPollAt,
     capacities: state.capacitySummary,
     cards: {
-      uplink,
-      switchB,
-      switchA,
+      uplink: state.interfaces.uplink || null,
+      switchB: state.interfaces.switchB || null,
+      switchA: state.interfaces.switchA || null,
     },
+    ping: state.ping,
   });
 });
 
