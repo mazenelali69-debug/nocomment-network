@@ -59,15 +59,6 @@ function pushHistory(prev, key, value) {
   return { ...prev, [key]: next }
 }
 
-
-function historyTrafficColor(values = []) {
-  const vals = (values.length ? values : [0]).map(v => toNum(v,0))
-  const avg = vals.reduce((a,b)=>a+b,0) / vals.length
-
-  if (avg >= 800) return "high"
-  if (avg >= 600) return "medium"
-  return "normal"
-}
 function trafficColor(mbps) {
   const v = toNum(mbps,0)
 
@@ -197,10 +188,7 @@ function TrafficCard({ title, sub, item, ping, history }) {
         </div>
       </div>
 
-      <div className="aviat-tf-big-number-row">
-        <div className="aviat-tf-big-number">{fmtMbps(item.totalMbps)}</div>
-      </div>
-      <div className={`aviat-tf-inline-spark under ${historyTrafficColor(history)}`}>{miniSparkChars(history)}</div>
+      <div className="aviat-tf-big-number-row"><div className="aviat-tf-big-number">{fmtMbps(item.totalMbps)}</div><div className={`aviat-tf-inline-spark ${trafficColor(item.totalMbps)}`}>{miniSparkChars(history)}</div></div>
       <div className="aviat-tf-big-label">Current Throughput</div>
 
       <Sparkline values={history} tone={tone} />
@@ -520,39 +508,28 @@ export default function AviatPage() {
         }
 
         .aviat-tf-big-number-row {
-          display: block;
-          margin-bottom: 0;
-          min-width: 0;
+          display: flex;
+          align-items: baseline;
+          gap: 12px;
+          margin-bottom: 2px;
+          flex-wrap: nowrap;
         }
 
         .aviat-tf-big-number {
-          font-size: clamp(18px, 1.7vw, 26px);
+          font-size: clamp(26px, 2.4vw, 40px);
           font-weight: 900;
-          line-height: 1.05;
+          line-height: 1;
           margin-bottom: 0;
-          white-space: nowrap;
-          min-width: 0;
         }
 
         .aviat-tf-inline-spark {
           font-family: Consolas, "Courier New", monospace;
-          font-size: 8px;
+          font-size: 14px;
           line-height: 1;
-          letter-spacing: 0;
-          user-select: none;
-          cursor: default;
+          letter-spacing: 1px;
+          user-select: none; cursor: help;
           opacity: 0.95;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: clip;
-          display: block;
-          max-width: 120px;
-        }
-
-        .aviat-tf-inline-spark.under {
-          margin: 3px 0 4px;
-          text-align: left;
-          transform: none;
+          transform: translateY(-1px);
         }
 
         .aviat-tf-inline-spark.normal {
@@ -830,11 +807,6 @@ export default function AviatPage() {
     </main>
   )
 }
-
-
-
-
-
 
 
 

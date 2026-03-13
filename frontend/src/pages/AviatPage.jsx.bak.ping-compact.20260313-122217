@@ -1,10 +1,4 @@
 ﻿import React, { useEffect, useMemo, useState } from "react"
-import {
-  ResponsiveContainer,
-  AreaChart,
-  Area,
-  Tooltip
-} from "recharts"
 
 const API_URL = "/api/aviat/status"
 const HISTORY_LIMIT = 24
@@ -15,13 +9,7 @@ function toNum(v, fallback = 0) {
 }
 
 function fmtMbps(v) {
-  if (!Number.isFinite(v)) return "--"
-
-  if (v >= 1000) {
-    return `${(v / 1000).toFixed(2)} Gbps`
-  }
-
-  return `${v.toFixed(2)} Mbps`
+  return Number.isFinite(v) ? `${v.toFixed(2)} Mbps` : "--"
 }
 
 function fmtPct(v) {
@@ -59,41 +47,6 @@ function pushHistory(prev, key, value) {
   return { ...prev, [key]: next }
 }
 
-
-function historyTrafficColor(values = []) {
-  const vals = (values.length ? values : [0]).map(v => toNum(v,0))
-  const avg = vals.reduce((a,b)=>a+b,0) / vals.length
-
-  if (avg >= 800) return "high"
-  if (avg >= 600) return "medium"
-  return "normal"
-}
-function trafficColor(mbps) {
-  const v = toNum(mbps,0)
-
-  if (v >= 800) return "high"
-  if (v >= 600) return "medium"
-  return "normal"
-}
-function miniSparkChars(values = []) {
-  const bars = ["▁","▂","▃","▄","▅","▆","▇","█"]
-  const vals = (values.length ? values : [0, 0, 0, 0, 0, 0]).map(v => toNum(v, 0))
-  const min = Math.min(...vals)
-  const max = Math.max(...vals)
-  const range = Math.max(1, max - min)
-
-  return vals.map(v => {
-    const idx = Math.min(7, Math.max(0, Math.floor(((v - min) / range) * 7)))
-    return bars[idx]
-  }).join("")
-}
-function miniSparkTitle(values = []) {
-  const vals = (values.length ? values : [0, 0, 0, 0, 0, 0]).map(v => toNum(v, 0))
-  const last = vals.length ? vals[vals.length - 1] : 0
-  const recent = vals.slice(-8).map(v => fmtMbps(v)).join(" | ")
-  return `Current: ${fmtMbps(last)} | Trend: ${recent}`
-}
-
 function Badge({ children, tone = "normal" }) {
   return <span className={`aviat-tf-badge ${tone}`}>{children}</span>
 }
@@ -108,63 +61,33 @@ function ProgressBar({ value, tone }) {
 }
 
 function Sparkline({ values = [], tone = "normal" }) {
-  const gradientId = React.useId().replace(/:/g, "")
-  const data = (values.length ? values : [0, 0, 0, 0, 0, 0]).map((v, i) => ({
-    index: i,
-    value: toNum(v, 0),
-  }))
+  const width = 320
+  const height = 68
+  const padding = 6
+  const vals = values.length ? values : [0, 0, 0, 0, 0, 0]
+  const min = Math.min(...vals)
+  const max = Math.max(...vals)
+  const range = Math.max(1, max - min)
 
-  const color =
-    tone === "high"
-      ? "#f43f5e"
-      : tone === "medium"
-      ? "#f59e0b"
-      : "#22c55e"
+  const points = vals.map((v, i) => {
+    const x = padding + (i * (width - padding * 2)) / Math.max(1, vals.length - 1)
+    const y = height - padding - ((v - min) / range) * (height - padding * 2)
+    return [x, y]
+  })
+
+  const d = points.map((p, i) => `${i === 0 ? "M" : "L"} ${p[0]} ${p[1]}`).join(" ")
 
   return (
     <div className="aviat-tf-spark-wrap">
-      <ResponsiveContainer width="100%" height="100%">
-        <AreaChart data={data} margin={{ top: 4, right: 4, bottom: 4, left: 4 }}>
-          <defs>
-            <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor={color} stopOpacity={0.35} />
-              <stop offset="95%" stopColor={color} stopOpacity={0} />
-            </linearGradient>
-          </defs>
-
-          <Tooltip
-            cursor={false}
-            formatter={(value) => [`${toNum(value, 0).toFixed(2)} Mbps`, "Traffic"]}
-            labelFormatter={(label) => `Sample ${label + 1}`}
-            contentStyle={{
-              background: "#0b1e3a",
-              border: "1px solid rgba(77,113,171,0.45)",
-              borderRadius: "10px",
-              fontSize: "12px",
-              color: "#e7eefb",
-              boxShadow: "0 10px 24px rgba(0,0,0,0.28)",
-            }}
-            itemStyle={{ color: "#e7eefb" }}
-            labelStyle={{ color: "#93a8c5", marginBottom: 4 }}
-          />
-
-          <Area
-            type="monotone"
-            dataKey="value"
-            stroke={color}
-            strokeWidth={3}
-            fill={`url(#${gradientId})`}
-            dot={false}
-            activeDot={{
-              r: 4,
-              stroke: color,
-              strokeWidth: 2,
-              fill: "#081228",
-            }}
-            isAnimationActive={false}
-          />
-        </AreaChart>
-      </ResponsiveContainer>
+      <svg viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="none" className="aviat-tf-spark">
+        <defs>
+          <linearGradient id={`grad-${tone}`} x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor={tone === "high" ? "#fb7185" : tone === "medium" ? "#f59e0b" : "#38bdf8"} />
+            <stop offset="100%" stopColor={tone === "high" ? "#ef4444" : tone === "medium" ? "#fbbf24" : "#22c55e"} />
+          </linearGradient>
+        </defs>
+        <path d={d} className="aviat-tf-spark-line" stroke={`url(#grad-${tone})`} />
+      </svg>
     </div>
   )
 }
@@ -197,10 +120,7 @@ function TrafficCard({ title, sub, item, ping, history }) {
         </div>
       </div>
 
-      <div className="aviat-tf-big-number-row">
-        <div className="aviat-tf-big-number">{fmtMbps(item.totalMbps)}</div>
-      </div>
-      <div className={`aviat-tf-inline-spark under ${historyTrafficColor(history)}`}>{miniSparkChars(history)}</div>
+      <div className="aviat-tf-big-number">{fmtMbps(item.totalMbps)}</div>
       <div className="aviat-tf-big-label">Current Throughput</div>
 
       <Sparkline values={history} tone={tone} />
@@ -379,7 +299,7 @@ export default function AviatPage() {
           gap: 12px;
           align-items: start;
           padding: 12px;
-          margin-bottom: 2px;
+          margin-bottom: 4px;
         }
 
         .aviat-tf-kicker {
@@ -414,7 +334,7 @@ export default function AviatPage() {
         }
 
         .aviat-tf-top-label {
-          font-size: 10px; color: #8aa1c1; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px;
+          font-size: 10px; color: #8aa1c1; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;
         }
 
         .aviat-tf-top-value {
@@ -430,7 +350,7 @@ export default function AviatPage() {
           display: grid;
           grid-template-columns: repeat(4, minmax(0, 1fr));
           gap: 12px;
-          margin-bottom: 8px;
+          margin-bottom: 14px;
         }
 
         .aviat-tf-summary-card {
@@ -439,8 +359,8 @@ export default function AviatPage() {
 
         .aviat-tf-summary-label {
           color: #8aa1c1;
-          font-size: 10px;
-          margin-bottom: 2px;
+          font-size: 11px;
+          margin-bottom: 4px;
         }
 
         .aviat-tf-summary-value {
@@ -448,14 +368,19 @@ export default function AviatPage() {
           font-weight: 900;
         }
 
-        .aviat-tf-section { margin-bottom: 10px; }
+        .aviat-tf-section {
+          margin-bottom: 18px;
+        }
 
         .aviat-tf-section h2 {
           margin: 0 0 6px;
           font-size: 22px;
         }
 
-        .aviat-tf-section p { margin: 0 0 8px; color: #93a8c5; }
+        .aviat-tf-section p {
+          margin: 0 0 14px;
+          color: #93a8c5;
+        }
 
         .aviat-tf-cards {
           display: grid;
@@ -479,7 +404,7 @@ export default function AviatPage() {
           align-items: flex-start;
           justify-content: space-between;
           gap: 12px;
-          margin-bottom: 8px;
+          margin-bottom: 14px;
         }
 
         .aviat-tf-card h3 {
@@ -495,10 +420,21 @@ export default function AviatPage() {
         .aviat-tf-footer {
           display: flex;
           gap: 8px;
-          flex-wrap: nowrap;
+          flex-wrap: wrap;
         }
 
-        .aviat-tf-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 72px; padding: 5px 9px; border-radius: 999px; font-size: 10px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
+        .aviat-tf-badge {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 88px;
+          padding: 7px 12px;
+          border-radius: 999px;
+          font-size: 12px;
+          font-weight: 800;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+        }
 
         .aviat-tf-badge.ok,
         .aviat-tf-badge.normal {
@@ -519,70 +455,26 @@ export default function AviatPage() {
           border: 1px solid rgba(239,68,68,0.3);
         }
 
-        .aviat-tf-big-number-row {
-          display: block;
-          margin-bottom: 0;
-          min-width: 0;
-        }
-
         .aviat-tf-big-number {
-          font-size: clamp(18px, 1.7vw, 26px);
+          font-size: clamp(34px, 3.2vw, 54px);
           font-weight: 900;
-          line-height: 1.05;
-          margin-bottom: 0;
-          white-space: nowrap;
-          min-width: 0;
-        }
-
-        .aviat-tf-inline-spark {
-          font-family: Consolas, "Courier New", monospace;
-          font-size: 8px;
           line-height: 1;
-          letter-spacing: 0;
-          user-select: none;
-          cursor: default;
-          opacity: 0.95;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: clip;
-          display: block;
-          max-width: 120px;
-        }
-
-        .aviat-tf-inline-spark.under {
-          margin: 3px 0 4px;
-          text-align: left;
-          transform: none;
-        }
-
-        .aviat-tf-inline-spark.normal {
-          color: #22c55e;
-          text-shadow: 0 0 8px rgba(34,197,94,0.22);
-        }
-
-        .aviat-tf-inline-spark.medium {
-          color: #f59e0b;
-          text-shadow: 0 0 8px rgba(245,158,11,0.22);
-        }
-
-        .aviat-tf-inline-spark.high {
-          color: #f43f5e;
-          text-shadow: 0 0 8px rgba(244,63,94,0.22);
+          margin-bottom: 6px;
         }
 
         .aviat-tf-big-label {
           color: #8ea3c2;
-          font-size: 10px;
-          margin-bottom: 2px;
+          font-size: 11px;
+          margin-bottom: 4px;
         }
 
         .aviat-tf-spark-wrap {
-          margin-bottom: 8px;
-          height: 40px;
+          margin-bottom: 14px;
+          height: 68px;
           border-radius: 18px;
           background: rgba(255,255,255,0.02);
           border: 1px solid rgba(148,163,184,0.08);
-          padding: 4px;
+          padding: 6px;
         }
 
         .aviat-tf-spark {
@@ -592,17 +484,17 @@ export default function AviatPage() {
 
         .aviat-tf-spark-line {
           fill: none;
-          stroke-width: 2;
+          stroke-width: 3;
           stroke-linecap: round;
           stroke-linejoin: round;
-          filter: drop-shadow(0 0 6px rgba(34,197,94,0.35));
+          filter: drop-shadow(0 0 6px rgba(56,189,248,0.35));
         }
 
         .aviat-tf-grid {
           display: grid;
           grid-template-columns: repeat(4, minmax(0, 1fr));
           gap: 8px;
-          margin-bottom: 8px;
+          margin-bottom: 14px;
         }
 
         .aviat-tf-mini-stat {
@@ -615,7 +507,7 @@ export default function AviatPage() {
           font-size: 12px;
           text-transform: uppercase;
           letter-spacing: 0.08em;
-          margin-bottom: 2px;
+          margin-bottom: 4px;
         }
 
         .aviat-tf-mini-stat strong {
@@ -626,7 +518,7 @@ export default function AviatPage() {
         .aviat-tf-util-row {
           display: flex;
           justify-content: space-between;
-          margin-bottom: 2px;
+          margin-bottom: 4px;
           color: #d6deec;
         }
 
@@ -636,7 +528,7 @@ export default function AviatPage() {
           overflow: hidden;
           border-radius: 999px;
           background: rgba(51,65,85,0.82);
-          margin-bottom: 8px;
+          margin-bottom: 14px;
         }
 
         .aviat-tf-progress-bar {
@@ -658,7 +550,7 @@ export default function AviatPage() {
 
         .aviat-tf-ping-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
           gap: 12px;
         }
 
@@ -670,7 +562,11 @@ export default function AviatPage() {
           align-items: center;
         }
 
-        .aviat-tf-ping-title { margin-top: 3px; font-size: 14px; font-weight: 800; }
+        .aviat-tf-ping-title {
+          margin-top: 6px;
+          font-size: 18px;
+          font-weight: 800;
+        }
 
         .aviat-tf-ping-right {
           text-align: right;
@@ -679,7 +575,7 @@ export default function AviatPage() {
         .aviat-tf-ping-value {
           font-size: 24px;
           font-weight: 900;
-          margin-bottom: 2px;
+          margin-bottom: 4px;
         }
 
         @media (max-width: 1200px) {
@@ -811,8 +707,8 @@ export default function AviatPage() {
       </section>
 
       <section className="aviat-tf-section">
-        
-        
+        <h2>Ping Targets</h2>
+        <p>Reachability and latency visibility for the key nodes.</p>
 
         <div className="aviat-tf-ping-grid">
           <PingCard title="THGV" item={data.ping.thgv} />
@@ -830,19 +726,5 @@ export default function AviatPage() {
     </main>
   )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

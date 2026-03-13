@@ -1,0 +1,589 @@
+﻿import React, { useEffect, useMemo, useState } from "react"
+
+const API_URL = "/api/aviat/status"
+
+function n(v, fallback = null) {
+  const x = Number(v)
+  return Number.isFinite(x) ? x : fallback
+}
+
+function fmtMbps(v) {
+  return Number.isFinite(v) ? `${v.toFixed(2)} Mbps` : "--"
+}
+
+function fmtPct(v) {
+  return Number.isFinite(v) ? `${v.toFixed(1)}%` : "--"
+}
+
+function fmtMs(v) {
+  return Number.isFinite(v) ? `${v} ms` : "--"
+}
+
+function sev(util) {
+  if (!Number.isFinite(util)) return "normal"
+  if (util >= 85) return "high"
+  if (util >= 60) return "medium"
+  return "normal"
+}
+
+function sevLabel(util) {
+  if (!Number.isFinite(util)) return "Normal"
+  if (util >= 85) return "Critical"
+  if (util >= 60) return "Warning"
+  return "Normal"
+}
+
+function pingState(ok, latency) {
+  if (ok === false || !Number.isFinite(latency)) return "loss"
+  if (latency >= 80) return "high"
+  if (latency >= 40) return "medium"
+  return "normal"
+}
+
+function Badge({ children, tone = "normal" }) {
+  return <span className={`aviatv2-badge aviatv2-badge-${tone}`}>{children}</span>
+}
+
+function StatBox({ label, value, sub }) {
+  return (
+    <div className="aviatv2-statbox">
+      <div className="aviatv2-statbox-label">{label}</div>
+      <div className="aviatv2-statbox-value">{value}</div>
+      {sub ? <div className="aviatv2-statbox-sub">{sub}</div> : null}
+    </div>
+  )
+}
+
+function Progress({ value, tone }) {
+  const safe = Math.max(0, Math.min(100, Number(value) || 0))
+  return (
+    <div className="aviatv2-progress">
+      <div className={`aviatv2-progress-bar ${tone}`} style={{ width: `${safe}%` }} />
+    </div>
+  )
+}
+
+function InterfaceCard({ title, ifName, item, ping }) {
+  const tone = sev(item.utilizationPct)
+  const pingTone = pingState(ping.lastOk, ping.lastLatencyMs)
+
+  return (
+    <section className="aviatv2-card">
+      <div className="aviatv2-card-head">
+        <div>
+          <div className="aviatv2-kicker">Interface</div>
+          <h3>{title}</h3>
+          <div className="aviatv2-muted">{ifName || "--"}</div>
+        </div>
+
+        <div className="aviatv2-badges">
+          <Badge tone={item.status === "ONLINE" ? "ok" : "medium"}>{item.status || "UNKNOWN"}</Badge>
+          <Badge tone={tone}>{sevLabel(item.utilizationPct)}</Badge>
+        </div>
+      </div>
+
+      <div className="aviatv2-stats-grid">
+        <StatBox label="RX" value={fmtMbps(item.rxMbps)} />
+        <StatBox label="TX" value={fmtMbps(item.txMbps)} />
+        <StatBox label="TOTAL" value={fmtMbps(item.totalMbps)} />
+        <StatBox label="CAPACITY" value={Number.isFinite(item.capacityMbps) ? `${item.capacityMbps} Mbps` : "--"} />
+      </div>
+
+      <div className="aviatv2-util">
+        <div className="aviatv2-util-row">
+          <span>Utilization</span>
+          <strong>{fmtPct(item.utilizationPct)}</strong>
+        </div>
+        <Progress value={item.utilizationPct} tone={tone} />
+      </div>
+
+      <div className="aviatv2-foot-row">
+        <Badge tone={pingTone}>Ping {fmtMs(ping.lastLatencyMs)}</Badge>
+        <Badge tone={ping.lastOk ? "ok" : "high"}>{ping.lastOk ? "Reachable" : "Loss"}</Badge>
+      </div>
+    </section>
+  )
+}
+
+function PingCard({ title, item }) {
+  const tone = pingState(item.lastOk, item.lastLatencyMs)
+
+  return (
+    <section className="aviatv2-ping-card">
+      <div className="aviatv2-ping-top">
+        <div>
+          <div className="aviatv2-kicker">Ping Target</div>
+          <h3>{title}</h3>
+          <div className="aviatv2-muted">{item.ip || "--"}</div>
+        </div>
+        <Badge tone={tone}>{item.lastOk ? "Online" : "Loss"}</Badge>
+      </div>
+
+      <div className="aviatv2-ping-latency">
+        {item.lastOk ? fmtMs(item.lastLatencyMs) : "No reply"}
+      </div>
+    </section>
+  )
+}
+
+export default function AviatPage() {
+  const [payload, setPayload] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState("")
+
+  useEffect(() => {
+    let alive = true
+
+    async function load() {
+      try {
+        const res = await fetch(API_URL, { cache: "no-store" })
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        const data = await res.json()
+        if (!alive) return
+        setPayload(data)
+        setError("")
+      } catch (e) {
+        if (!alive) return
+        setError(e?.message || "Request failed")
+      } finally {
+        if (alive) setLoading(false)
+      }
+    }
+
+    load()
+    const timer = setInterval(load, 3000)
+
+    return () => {
+      alive = false
+      clearInterval(timer)
+    }
+  }, [])
+
+  const data = useMemo(() => {
+    const cards = payload?.cards || {}
+    const ping = payload?.ping || {}
+
+    const uplink = cards.uplink || {}
+    const switchA = cards.switchA || {}
+    const switchB = cards.switchB || {}
+
+    return {
+      deviceIp: payload?.deviceIp || "155.15.59.4",
+      pollSeconds: n(payload?.pollSeconds, 3),
+      tick: payload?.tick ?? "--",
+      lastPollAt: payload?.lastPollAt,
+      uplink: {
+        label: uplink.label || "Radio 1",
+        ifName: uplink.ifName || "Radio1",
+        rxMbps: n(uplink.rxMbps, 0),
+        txMbps: n(uplink.txMbps, 0),
+        totalMbps: n(uplink.totalMbps, 0),
+        utilizationPct: n(uplink.utilizationPct, 0),
+        capacityMbps: n(uplink.capacityMbps, 3000),
+        status: uplink.status || "UNKNOWN",
+      },
+      switchA: {
+        label: switchA.label || "Switch A",
+        ifName: switchA.ifName || "TenGigE1/2",
+        rxMbps: n(switchA.rxMbps, 0),
+        txMbps: n(switchA.txMbps, 0),
+        totalMbps: n(switchA.totalMbps, 0),
+        utilizationPct: n(switchA.utilizationPct, 0),
+        capacityMbps: n(switchA.capacityMbps, 1000),
+        status: switchA.status || "UNKNOWN",
+      },
+      switchB: {
+        label: switchB.label || "Switch B",
+        ifName: switchB.ifName || "TenGigE1/1",
+        rxMbps: n(switchB.rxMbps, 0),
+        txMbps: n(switchB.txMbps, 0),
+        totalMbps: n(switchB.totalMbps, 0),
+        utilizationPct: n(switchB.utilizationPct, 0),
+        capacityMbps: n(switchB.capacityMbps, 1000),
+        status: switchB.status || "UNKNOWN",
+      },
+      ping: {
+        thgv: ping.thgv || {},
+        aviat: ping.aviat || {},
+        edgeA: ping.edgeA || {},
+        edgeB: ping.edgeB || {},
+      },
+    }
+  }, [payload])
+
+  const peakUtil = Math.max(
+    data.uplink.utilizationPct || 0,
+    data.switchA.utilizationPct || 0,
+    data.switchB.utilizationPct || 0
+  )
+
+  const totalTraffic = data.uplink.totalMbps || 0
+  const headerTone = sev(peakUtil)
+
+  return (
+    <main className="aviatv2-page">
+      <style>{`
+        .aviatv2-page {
+          width: 100%;
+          min-height: 100%;
+          color: #e6eefc;
+          font-family: Inter, Segoe UI, Arial, sans-serif;
+        }
+
+        .aviatv2-page * {
+          box-sizing: border-box;
+        }
+
+        .aviatv2-wrap {
+          width: 100%;
+          max-width: 100%;
+          margin: 0 auto;
+        }
+
+        .aviatv2-panel,
+        .aviatv2-card,
+        .aviatv2-ping-card,
+        .aviatv2-statbox {
+          border: 1px solid rgba(148, 163, 184, 0.16);
+          background: rgba(10, 22, 46, 0.72);
+          border-radius: 22px;
+          box-shadow: 0 10px 34px rgba(0, 0, 0, 0.18);
+        }
+
+        .aviatv2-hero {
+          display: grid;
+          grid-template-columns: 1fr auto;
+          gap: 10px;
+          padding: 14px; margin-bottom: 10px; align-items: start;
+        }
+
+        .aviatv2-kicker {
+          font-size: 12px;
+          text-transform: uppercase;
+          letter-spacing: 0.16em;
+          color: #66d9ff;
+        }
+
+        .aviatv2-hero h1 {
+          margin: 10px 0 10px;
+          font-size: clamp(26px, 3vw, 40px);
+          line-height: 1.04;
+        }
+
+        .aviatv2-hero p {
+          margin: 0;
+          color: #9db0cc;
+          line-height: 1.6;
+          max-width: 620px;
+        }
+
+        .aviatv2-hero-side {
+          display: grid;
+          gap: 10px;
+        }
+
+        .aviatv2-summary-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          gap: 16px;
+          margin-bottom: 18px;
+        }
+
+        .aviatv2-summary-card {
+          padding: 14px;
+        }
+
+        .aviatv2-summary-label {
+          color: #92a7c6;
+          font-size: 13px;
+          margin-bottom: 8px;
+        }
+
+        .aviatv2-summary-value {
+          font-size: clamp(24px, 2.4vw, 38px);
+          font-weight: 800;
+        }
+
+        .aviatv2-section {
+          margin-bottom: 18px;
+        }
+
+        .aviatv2-section-head {
+          margin-bottom: 10px;
+        }
+
+        .aviatv2-section-head h2 {
+          margin: 0 0 6px;
+          font-size: 22px;
+        }
+
+        .aviatv2-section-head p {
+          margin: 0;
+          color: #90a5c3;
+        }
+
+        .aviatv2-cards-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+          gap: 16px;
+        }
+
+        .aviatv2-card {
+          padding: 20px;
+        }
+
+        .aviatv2-card-head,
+        .aviatv2-ping-top {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          gap: 10px;
+          margin-bottom: 18px;
+        }
+
+        .aviatv2-card h3,
+        .aviatv2-ping-card h3 {
+          margin: 6px 0 4px;
+          font-size: 24px;
+        }
+
+        .aviatv2-muted {
+          color: #8ea3c2;
+        }
+
+        .aviatv2-badges,
+        .aviatv2-foot-row {
+          display: flex;
+          gap: 8px;
+          flex-wrap: wrap;
+        }
+
+        .aviatv2-stats-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 10px;
+        }
+
+        .aviatv2-statbox {
+          padding: 14px;
+        }
+
+        .aviatv2-statbox-label {
+          font-size: 12px;
+          color: #92a7c6;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          margin-bottom: 8px;
+        }
+
+        .aviatv2-statbox-value {
+          font-size: clamp(20px, 2vw, 30px);
+          font-weight: 800;
+        }
+
+        .aviatv2-statbox-sub {
+          margin-top: 6px;
+          color: #8ea3c2;
+          font-size: 12px;
+        }
+
+        .aviatv2-util {
+          margin: 18px 0 14px;
+        }
+
+        .aviatv2-util-row {
+          display: flex;
+          justify-content: space-between;
+          gap: 10px;
+          margin-bottom: 10px;
+          color: #d1dbeb;
+        }
+
+        .aviatv2-progress {
+          width: 100%;
+          height: 12px;
+          border-radius: 999px;
+          overflow: hidden;
+          background: rgba(51, 65, 85, 0.85);
+        }
+
+        .aviatv2-progress-bar {
+          height: 100%;
+          border-radius: 999px;
+        }
+
+        .aviatv2-progress-bar.normal {
+          background: linear-gradient(90deg, #22c55e 0%, #16a34a 100%);
+        }
+
+        .aviatv2-progress-bar.medium {
+          background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);
+        }
+
+        .aviatv2-progress-bar.high {
+          background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
+        }
+
+        .aviatv2-badge {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 84px;
+          padding: 7px 12px;
+          border-radius: 999px;
+          font-size: 12px;
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        .aviatv2-badge-ok,
+        .aviatv2-badge-normal {
+          color: #86efac;
+          border: 1px solid rgba(34, 197, 94, 0.36);
+          background: rgba(34, 197, 94, 0.14);
+        }
+
+        .aviatv2-badge-medium {
+          color: #fcd34d;
+          border: 1px solid rgba(245, 158, 11, 0.36);
+          background: rgba(245, 158, 11, 0.14);
+        }
+
+        .aviatv2-badge-high,
+        .aviatv2-badge-loss {
+          color: #fca5a5;
+          border: 1px solid rgba(239, 68, 68, 0.36);
+          background: rgba(239, 68, 68, 0.14);
+        }
+
+        .aviatv2-ping-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 16px;
+        }
+
+        .aviatv2-ping-card {
+          padding: 20px;
+        }
+
+        .aviatv2-ping-latency {
+          margin-top: 28px;
+          font-size: clamp(28px, 3vw, 42px);
+          font-weight: 900;
+        }
+
+        @media (max-width: 980px) {
+          .aviatv2-hero {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        @media (max-width: 700px) {
+          .aviatv2-stats-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .aviatv2-card-head,
+          .aviatv2-ping-top {
+            flex-direction: column;
+          }
+        }
+      `}</style>
+
+      <div className="aviatv2-wrap">
+        <section className="aviatv2-panel aviatv2-hero">
+          <div>
+            <div className="aviatv2-kicker">NoComment Network • Aviat Operations</div>
+            <h1>Aviat WTM4200 Monitor</h1>
+            <p>
+              Live monitoring page for the Aviat uplink and downstream switch links.
+              Responsive layout, clear traffic cards, ping visibility, and clean status handling.
+            </p>
+          </div>
+
+          <div className="aviatv2-hero-side">
+            <StatBox label="Device" value={data.deviceIp} sub="Primary radio target" />
+            <StatBox label="Poll" value={`${data.pollSeconds} sec`} sub="Refresh interval" />
+            <StatBox label="Tick" value={String(data.tick)} sub={loading ? "Loading active" : "Live session"} />
+          </div>
+        </section>
+
+        <section className="aviatv2-summary-grid">
+          <div className="aviatv2-panel aviatv2-summary-card">
+            <div className="aviatv2-summary-label">Total Traffic</div>
+            <div className="aviatv2-summary-value">{fmtMbps(totalTraffic)}</div>
+          </div>
+
+          <div className="aviatv2-panel aviatv2-summary-card">
+            <div className="aviatv2-summary-label">Peak Utilization</div>
+            <div className="aviatv2-summary-value">{fmtPct(peakUtil)}</div>
+          </div>
+
+          <div className="aviatv2-panel aviatv2-summary-card">
+            <div className="aviatv2-summary-label">State</div>
+            <div className="aviatv2-summary-value">{sevLabel(peakUtil)}</div>
+          </div>
+
+          <div className="aviatv2-panel aviatv2-summary-card">
+            <div className="aviatv2-summary-label">Backend</div>
+            <div className="aviatv2-summary-value">{error ? "ERROR" : "ONLINE"}</div>
+          </div>
+        </section>
+
+        <section className="aviatv2-section">
+          <div className="aviatv2-section-head">
+            <h2>Traffic Interfaces</h2>
+            <p>Live throughput, utilization, and capacity across the Aviat path.</p>
+          </div>
+
+          <div className="aviatv2-cards-grid">
+            <InterfaceCard
+              title={data.uplink.label}
+              ifName={data.uplink.ifName}
+              item={data.uplink}
+              ping={data.ping.aviat}
+            />
+
+            <InterfaceCard
+              title={data.switchA.label}
+              ifName={data.switchA.ifName}
+              item={data.switchA}
+              ping={data.ping.edgeA}
+            />
+
+            <InterfaceCard
+              title={data.switchB.label}
+              ifName={data.switchB.ifName}
+              item={data.switchB}
+              ping={data.ping.edgeB}
+            />
+          </div>
+        </section>
+
+        <section className="aviatv2-section">
+          <div className="aviatv2-section-head">
+            <h2>Ping Targets</h2>
+            <p>Reachability and latency visibility for key nodes.</p>
+          </div>
+
+          <div className="aviatv2-ping-grid">
+            <PingCard title="THGV" item={data.ping.thgv} />
+            <PingCard title="Aviat WTM4200" item={data.ping.aviat} />
+            <PingCard title="JetStream A" item={data.ping.edgeA} />
+            <PingCard title="JetStream B" item={data.ping.edgeB} />
+          </div>
+        </section>
+
+        {error ? (
+          <section className="aviatv2-section">
+            <Badge tone="high">Backend Error: {error}</Badge>
+          </section>
+        ) : null}
+      </div>
+    </main>
+  )
+}
+
+
+

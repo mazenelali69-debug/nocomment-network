@@ -31,10 +31,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
             Aviat WTM4200
           </NavLink>
 
-
-          <NavLink to="/aviat-standalone" className={linkClass} onClick={() => setMobileOpen(false)}>
-            Aviat Standalone
-          </NavLink>          <NavLink to="/jetstream" className={linkClass} onClick={() => setMobileOpen(false)}>
+          <NavLink to="/jetstream" className={linkClass} onClick={() => setMobileOpen(false)}>
             TP-Link JetStream
           </NavLink>
 
@@ -51,4 +48,3 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
     </>
   )
 }
-

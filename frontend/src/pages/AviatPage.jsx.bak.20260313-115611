@@ -1,0 +1,380 @@
+﻿import React, { useEffect, useMemo, useState } from "react"
+const API_URL = "/api/aviat/status"
+
+function fmtMbps(v) {
+  return Number.isFinite(v) ? `${v.toFixed(2)} Mbps` : "--"
+}
+
+function fmtPct(v) {
+  return Number.isFinite(v) ? `${v.toFixed(1)}%` : "--"
+}
+
+function fmtMs(v) {
+  return Number.isFinite(v) ? `${v} ms` : "--"
+}
+
+function sevClass(v) {
+  if (v >= 90) return "high"
+  if (v >= 70) return "medium"
+  return "normal"
+}
+
+function loadLabel(v) {
+  if (v >= 90) return "Critical"
+  if (v >= 70) return "Warning"
+  return "Normal"
+}
+
+function pingClass(ms) {
+  if (!Number.isFinite(ms)) return "loss"
+  if (ms >= 80) return "high"
+  if (ms >= 40) return "medium"
+  return "normal"
+}
+
+function sparkValues(input) {
+  if (Array.isArray(input) && input.length) {
+    return input.map((x) => Number(x)).filter(Number.isFinite).slice(-24)
+  }
+  return []
+}
+
+function Sparkline({ values = [], severity = "normal" }) {
+  const width = 240
+  const height = 44
+  const padding = 4
+  const vals = values.length ? values : [0, 0, 0, 0, 0, 0]
+
+  const min = Math.min(...vals)
+  const max = Math.max(...vals)
+  const range = Math.max(1, max - min)
+
+  const points = vals.map((v, i) => {
+    const x = padding + (i * (width - padding * 2)) / Math.max(1, vals.length - 1)
+    const y = height - padding - ((v - min) / range) * (height - padding * 2)
+    return [x, y]
+  })
+
+  const d = points.map((p, i) => `${i === 0 ? "M" : "L"} ${p[0]} ${p[1]}`).join(" ")
+
+  return (
+    <div className="aviat-spark-wrap">
+      <svg className="aviat-spark" viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="none">
+        <path className={`aviat-spark-line ${severity}`} d={d} />
+      </svg>
+    </div>
+  )
+}
+
+function PingBadge({ pingMs, lossPct }) {
+  const cls = pingClass(pingMs)
+  return (
+    <div className={`aviat-ping-badge ${cls}`}>
+      <span className="aviat-ping-dot" />
+      <span>{fmtMs(pingMs)}</span>
+      <span className="aviat-ping-sep">•</span>
+      <span>{Number.isFinite(lossPct) ? `${lossPct}% loss` : "--"}</span>
+    </div>
+  )
+}
+
+function MetricCard({ kicker, title, ip, total, rx, tx, util, capacity, pingMs, lossPct, spark = [] }) {
+  const sev = sevClass(util)
+  return (
+    <div className={`aviat-card-clean ${sev}`}>
+      <div className="aviat-card-head">
+        <div>
+          <div className="aviat-card-kicker">{kicker}</div>
+          <div className="aviat-card-title">{title}</div>
+          <div className="aviat-card-sub">{ip || "--"}</div>
+        </div>
+
+        <div className="aviat-card-badges">
+          <div className="aviat-pill ok">Online</div>
+          <div className={`aviat-pill ${sev}`}>{loadLabel(util)}</div>
+        </div>
+      </div>
+
+      <div className="aviat-card-total">{fmtMbps(total)}</div>
+      <div className="aviat-card-total-label">Real-time throughput</div>
+
+      <div className="aviat-card-metrics">
+        <div>
+          <span>RX</span>
+          <strong>{fmtMbps(rx)}</strong>
+        </div>
+        <div>
+          <span>TX</span>
+          <strong>{fmtMbps(tx)}</strong>
+        </div>
+      </div>
+
+      <div className="aviat-card-bar-shell">
+        <div className={`aviat-card-bar ${sev}`} style={{ width: `${Math.max(0, Math.min(100, util || 0))}%` }} />
+      </div>
+
+      <div className="aviat-card-metrics">
+        <div>
+          <span>Capacity</span>
+          <strong>{Number.isFinite(capacity) ? `${capacity} Mbps` : "--"}</strong>
+        </div>
+        <div>
+          <span>Load</span>
+          <strong>{loadLabel(util)}</strong>
+        </div>
+      </div>
+
+      <PingBadge pingMs={pingMs} lossPct={lossPct} />
+      <Sparkline values={spark} severity={sev} />
+    </div>
+  )
+}
+
+function NodeBox({ className = "", label, title, ip, total, util, pingMs, lossPct, severity = "normal" }) {
+  return (
+    <div className={`aviat-node-box ${className} ${severity}`}>
+      <div className="aviat-node-label">{label}</div>
+      <div className="aviat-node-title">{title}</div>
+      <div className="aviat-node-subtitle">{ip || "--"}</div>
+      {Number.isFinite(total) ? <div className="aviat-node-total">{fmtMbps(total)}</div> : null}
+      {Number.isFinite(util) ? <div className="aviat-node-util">{fmtPct(util)} utilization</div> : null}
+      <PingBadge pingMs={pingMs} lossPct={lossPct} />
+    </div>
+  )
+}
+
+function TopologyMap({ uplink, edgeA, edgeB }) {
+  const leftSeverity = sevClass(edgeA?.utilPct ?? 0)
+  const centerSeverity = sevClass(uplink?.utilPct ?? 0)
+  const rightSeverity = sevClass(edgeB?.utilPct ?? 0)
+
+  return (
+    <div className="aviat-topology-clean">
+      <div className="aviat-topology-header">
+        <div className="aviat-topology-kicker">Live Topology</div>
+        <div className="aviat-topology-title">Aviat Radio Distribution</div>
+      </div>
+
+      <div className="aviat-legend">
+        <span><i className="dot normal"></i>Normal</span>
+        <span><i className="dot medium"></i>Warning</span>
+        <span><i className="dot high"></i>Critical</span>
+      </div>
+
+      <div className="aviat-topology-canvas aviat-topology-canvas-final">
+        <div className="aviat-grid"></div>
+
+        <svg className="aviat-topology-svg-final" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true">
+          <path className="aviat-link-base-final" d="M 315 86 Q 408 122 472 184" />
+          <path className="aviat-link-flow-final" d="M 315 86 Q 408 122 472 184" />
+
+          <path className="aviat-link-base-final" d="M 685 86 Q 592 122 528 184" />
+          <path className="aviat-link-flow-final" d="M 685 86 Q 592 122 528 184" />
+        </svg>
+
+        <NodeBox
+          className="edge-a"
+          label="Edge A"
+          title="TP-Link JetStream"
+          ip={edgeA?.ip}
+          total={edgeA?.total}
+          util={edgeA?.utilPct}
+          severity={leftSeverity}
+          pingMs={edgeA?.pingMs}
+          lossPct={edgeA?.lossPct}
+        />
+
+        <NodeBox
+          className="edge-b"
+          label="Edge B"
+          title="TP-Link JetStream"
+          ip={edgeB?.ip}
+          total={edgeB?.total}
+          util={edgeB?.utilPct}
+          severity={rightSeverity}
+          pingMs={edgeB?.pingMs}
+          lossPct={edgeB?.lossPct}
+        />
+
+        <NodeBox
+          className="radio"
+          label="Uplink"
+          title="Aviat WTM4200"
+          ip={uplink?.ip}
+          total={uplink?.total}
+          util={uplink?.utilPct}
+          severity={centerSeverity}
+          pingMs={uplink?.pingMs}
+          lossPct={uplink?.lossPct}
+        />
+      </div>
+    </div>
+  )
+}
+
+export default function AviatPage() {
+  const [payload, setPayload] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState("")
+
+  useEffect(() => {
+    let alive = true
+
+    async function load() {
+      try {
+        const res = await fetch(API_URL, { cache: "no-store" })
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        const data = await res.json()
+        if (!alive) return
+        setPayload(data)
+        setError("")
+      } catch (e) {
+        if (!alive) return
+        setError(e?.message || "Request failed")
+      } finally {
+        if (alive) setLoading(false)
+      }
+    }
+
+    load()
+    const t = setInterval(load, 3000)
+    return () => {
+      alive = false
+      clearInterval(t)
+    }
+  }, [])
+
+  const cards = useMemo(() => {
+    const uplink = payload?.cards?.uplink || payload?.uplink || {}
+    const edgeA  = payload?.cards?.switchA || payload?.switchA || {}
+    const edgeB  = payload?.cards?.switchB || payload?.switchB || {}
+
+    const normalize = (obj, fallbackIp = "--") => {
+      const total = Number(obj.totalMbps ?? obj.total ?? obj.throughputMbps)
+      const rx = Number(obj.rxMbps ?? obj.rx)
+      const tx = Number(obj.txMbps ?? obj.tx)
+      const capacity = Number(obj.capacityMbps ?? obj.capacity ?? 1000)
+      const utilPct = Number(obj.utilPct ?? obj.utilizationPct ?? ((Number.isFinite(total) && capacity > 0) ? (total / capacity) * 100 : 0))
+      const pingMs = Number(obj.pingMs ?? obj.latencyMs ?? obj.ping)
+      const lossPct = Number(obj.lossPct ?? obj.loss ?? 0)
+      const spark = sparkValues(obj.spark ?? obj.history ?? obj.series)
+      return {
+        ip: obj.ip ?? fallbackIp,
+        total,
+        rx,
+        tx,
+        capacity,
+        utilPct,
+        pingMs,
+        lossPct,
+        spark,
+      }
+    }
+
+    return {
+      uplink: normalize(uplink, payload?.deviceIp ?? "155.15.59.4"),
+      edgeA: normalize(edgeA, "10.88.88.254"),
+      edgeB: normalize(edgeB, "88.88.88.254"),
+    }
+  }, [payload])
+
+  const northbound = cards.uplink.total / 2
+  const southbound = cards.uplink.total / 2
+  const peakUtil = Math.max(cards.uplink.utilPct || 0, cards.edgeA.utilPct || 0, cards.edgeB.utilPct || 0)
+  const totalTraffic = cards.uplink.total || 0
+  const stateClass = sevClass(peakUtil)
+  const stateText = loadLabel(peakUtil)
+
+  return (
+    <div className="aviat-clean-page">
+      <div className="aviat-clean-master">
+        <div className="aviat-clean-master-left">
+          <div className="aviat-clean-eyebrow">Aviat WTM4200 • Live Operations</div>
+          <div className="aviat-clean-big">Aviat Link Monitor</div>
+          <div className="aviat-clean-sub">
+            Device {payload?.deviceIp || "155.15.59.4"} • Poll {payload?.pollSeconds || 3}s • Tick {payload?.tick ?? "--"}
+          </div>
+        </div>
+
+        <div className="aviat-clean-master-right">
+          <div className="aviat-master-box">
+            <span>Total Traffic</span>
+            <strong>{fmtMbps(totalTraffic)}</strong>
+          </div>
+
+          <div className={`aviat-master-box status ${stateClass}`}>
+            <span>Peak Util</span>
+            <strong>{fmtPct(peakUtil)}</strong>
+          </div>
+
+          <div className={`aviat-master-box status ${stateClass}`}>
+            <span>State</span>
+            <strong>{stateText}</strong>
+          </div>
+        </div>
+      </div>
+
+      <TopologyMap
+        uplink={cards.uplink}
+        edgeA={cards.edgeA}
+        edgeB={cards.edgeB}
+      />
+
+      <div className="aviat-bottom-mini">
+        <div className="aviat-pill soft">Northbound {fmtMbps(northbound)}</div>
+        <div className="aviat-pill soft">Southbound {fmtMbps(southbound)}</div>
+        <div className={`aviat-pill ${stateClass}`}>{stateText}</div>
+        {loading ? <div className="aviat-pill medium">Loading</div> : null}
+        {error ? <div className="aviat-pill high">{error}</div> : <div className="aviat-pill ok">Core Online</div>}
+      </div>
+
+      <div className="aviat-card-grid">
+        <MetricCard
+          kicker="Uplink"
+          title="Aviat WTM4200"
+          ip={cards.uplink.ip}
+          total={cards.uplink.total}
+          rx={cards.uplink.rx}
+          tx={cards.uplink.tx}
+          util={cards.uplink.utilPct}
+          capacity={cards.uplink.capacity}
+          pingMs={cards.uplink.pingMs}
+          lossPct={cards.uplink.lossPct}
+          spark={cards.uplink.spark}
+        />
+
+        <MetricCard
+          kicker="Switch A"
+          title="TP-Link JetStream"
+          ip={cards.edgeA.ip}
+          total={cards.edgeA.total}
+          rx={cards.edgeA.rx}
+          tx={cards.edgeA.tx}
+          util={cards.edgeA.utilPct}
+          capacity={cards.edgeA.capacity}
+          pingMs={cards.edgeA.pingMs}
+          lossPct={cards.edgeA.lossPct}
+          spark={cards.edgeA.spark}
+        />
+
+        <MetricCard
+          kicker="Switch B"
+          title="TP-Link JetStream"
+          ip={cards.edgeB.ip}
+          total={cards.edgeB.total}
+          rx={cards.edgeB.rx}
+          tx={cards.edgeB.tx}
+          util={cards.edgeB.utilPct}
+          capacity={cards.edgeB.capacity}
+          pingMs={cards.edgeB.pingMs}
+          lossPct={cards.edgeB.lossPct}
+          spark={cards.edgeB.spark}
+        />
+      </div>
+    </div>
+  )
+}
+
+
+
+

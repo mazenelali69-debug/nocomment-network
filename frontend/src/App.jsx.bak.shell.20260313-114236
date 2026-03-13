@@ -6,6 +6,7 @@ import AviatPage from "./pages/AviatPage"
 import JetstreamPage from "./pages/JetstreamPage"
 import MikrotikPage from "./pages/MikrotikPage"
 import AppShell from "./layout/AppShell"
+import AviatStandalonePage from "./standalone/aviat/AviatStandalonePage"
 
 export default function App() {
   return (
@@ -49,13 +50,14 @@ export default function App() {
       />
 
 
-
+      <Route
+        path="/aviat-standalone"
+        element={<AviatStandalonePage />}
+      />
       <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   )
 }
-
-
 
 
